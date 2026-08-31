@@ -1,0 +1,18 @@
+# Python
+backend/venv/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+backend/sci_vanille_v2.db
+*.db
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Office lock files
+~$*.docx
+
+# Misc
+temp_docx/
+.env

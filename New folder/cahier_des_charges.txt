@@ -1,0 +1,3380 @@
+Cahier des charges – Plateforme SCI Vanille Biologique
+Version : 1.0
+Table des matières
+Introduction et contexte du projet
+Objectifs du système SCI
+Présentation générale du fonctionnement métier
+Gestion des producteurs
+Gestion des parcelles
+Gestion des récoltes, collectes et lots
+Gestion de la transformation de la vanille
+Gestion des qualités de vanille préparée
+Gestion des lots préparés
+Gestion du stock
+Gestion des ventes et exports
+Gestion de la traçabilité
+Gestion des inspections et non-conformités
+Gestion documentaire
+Workflows métier détaillés
+Structure de la base de données
+Écrans et maquettes fonctionnelles
+Documents PDF et exports
+Règles métier, alertes et contrôles
+Gestion des rôles et permissions
+Architecture technique et exigences techniques
+Wireframes et maquettes visuelles
+MVP, périmètre de développement et priorités
+Conclusion générale
+Cahier des charges fonctionnel
+Plateforme de gestion SCI – Vanille biologique
+1. Présentation du projet
+Le projet consiste à créer une plateforme numérique de type extranet / application web destinée à gérer un Système de Contrôle Interne (SCI) pour un groupement de producteurs de vanille biologique.
+La plateforme doit permettre de centraliser toutes les données liées aux producteurs, parcelles, récoltes, lots, transformations, contrôles internes, non-conformités, stocks, ventes/exportations et documents de certification.
+L’objectif principal est de remplacer ou compléter les fichiers papier/Excel par un outil structuré, fiable et exploitable lors des audits de certification biologique.
+2. Contexte métier
+Le groupement produit de la vanille biologique. Le SCI doit permettre de contrôler les producteurs, garantir la conformité biologique, tracer les lots et préparer les audits externes.
+Dans le fonctionnement souhaité, la traçabilité commence dès la récolte de la vanille verte. Cette vanille verte est ensuite collectée, préparée/transformée, stockée puis vendue ou exportée sous forme de vanille préparée.
+Le système doit donc suivre le flux complet :
+Producteur → Parcelle → Récolte vanille verte → Collecte → Lot vert → Préparation / transformation → Lot préparé → Stock → Vente / export
+3. Objectifs de la plateforme
+La plateforme doit permettre de :
+gérer les producteurs du groupement ;
+gérer les parcelles et leur localisation ;
+suivre les récoltes de vanille verte ;
+suivre les collectes et pesées ;
+créer et suivre les lots verts ;
+suivre la transformation de la vanille verte en vanille préparée ;
+gérer les lots préparés ;
+gérer le stock ;
+tracer un lot depuis la parcelle jusqu’à la vente/export ;
+remonter d’un lot vendu/exporté jusqu’aux producteurs d’origine ;
+gérer les inspections internes ;
+gérer les non-conformités et actions correctives ;
+centraliser les documents nécessaires au SCI ;
+générer des rapports utiles pour les audits.
+4. Utilisateurs et rôles
+La plateforme doit prévoir plusieurs profils utilisateurs avec des droits différents.
+4.1 Administrateur
+L’administrateur gère l’ensemble de la plateforme.
+Droits principaux :
+créer/modifier/supprimer des utilisateurs ;
+gérer les rôles ;
+accéder à toutes les données ;
+configurer les paramètres généraux ;
+exporter les données.
+4.2 Coordinateur SCI
+Le coordinateur SCI pilote le système de contrôle interne.
+Droits principaux :
+gérer les producteurs ;
+gérer les parcelles ;
+suivre les inspections ;
+valider les décisions de conformité ;
+gérer les non-conformités ;
+consulter les tableaux de bord ;
+préparer les rapports d’audit.
+4.3 Auditeur interne
+L’auditeur interne réalise les inspections des producteurs et des parcelles.
+Droits principaux :
+consulter les producteurs assignés ;
+remplir les fiches d’inspection ;
+ajouter photos et observations ;
+signaler une non-conformité ;
+signer un rapport d’inspection.
+4.4 Responsable collecte
+Le responsable collecte enregistre les apports de vanille verte.
+Droits principaux :
+créer une collecte ;
+peser/enregistrer les quantités ;
+générer un bordereau de collecte ;
+associer la collecte au producteur et à la parcelle ;
+créer ou alimenter un lot vert.
+4.5 Responsable transformation / préparation
+Ce rôle suit la transformation de la vanille verte en vanille préparée.
+Droits principaux :
+sélectionner les lots verts utilisés ;
+enregistrer les étapes de préparation ;
+saisir les poids d’entrée et de sortie ;
+calculer les pertes et le rendement ;
+créer un lot préparé.
+4.6 Responsable stock
+Le responsable stock suit les entrées, sorties et emplacements des lots.
+Droits principaux :
+enregistrer les entrées en stock ;
+enregistrer les sorties ;
+affecter un emplacement ;
+consulter les quantités disponibles ;
+signaler une anomalie de stock.
+4.7 Auditeur externe / lecteur
+Ce profil dispose d’un accès en lecture seule.
+Droits principaux :
+consulter les données nécessaires à l’audit ;
+consulter les rapports ;
+consulter la traçabilité ;
+exporter certains documents si autorisé.
+5. Workflow métier principal
+Le workflow principal doit suivre les étapes suivantes :
+Création du producteur.
+Création de ses parcelles.
+Enregistrement des récoltes de vanille verte.
+Collecte et pesée de la vanille verte.
+Création d’un lot vert.
+Préparation/transformation du ou des lots verts.
+Création d’un lot préparé.
+Entrée du lot préparé en stock.
+Sortie du stock pour vente ou export.
+Consultation de la traçabilité complète.
+La plateforme doit permettre de suivre ce flux dans les deux sens :
+de la parcelle vers la vente/export ;
+de la vente/export vers la parcelle d’origine.
+6. Modules fonctionnels à développer
+6.1 Tableau de bord
+Le tableau de bord doit afficher une synthèse de l’activité.
+Indicateurs souhaités :
+nombre total de producteurs ;
+nombre total de parcelles ;
+nombre de lots verts ;
+nombre de lots préparés ;
+quantité totale collectée ;
+stock total disponible ;
+inspections réalisées ;
+non-conformités ouvertes ;
+lots en attente de transformation ;
+lots prêts à la vente/export.
+6.2 Module Producteurs
+Le module Producteurs doit permettre de créer, modifier, consulter et archiver les producteurs.
+Champs principaux :
+code producteur unique ;
+nom ;
+prénom ;
+village ;
+téléphone ;
+date d’entrée dans le groupement ;
+statut : actif, suspendu, exclu ;
+statut biologique : conversion, certifié, non certifié ;
+surface totale ;
+observations ;
+documents associés.
+6.3 Module Parcelles
+Chaque parcelle doit être rattachée à un producteur.
+Champs principaux :
+code parcelle unique ;
+producteur lié ;
+village/localisation ;
+coordonnées GPS ;
+superficie ;
+culture principale ;
+cultures associées ;
+historique des intrants ;
+risque de contamination ;
+statut de conformité ;
+photos ;
+observations.
+6.4 Module Récolte vanille verte
+Ce module permet d’enregistrer la vanille verte récoltée avant préparation.
+Champs principaux :
+code récolte ou code lot vert ;
+producteur ;
+parcelle ;
+date de récolte ;
+poids récolté en kg ;
+qualité observée ;
+maturité ;
+observations ;
+personne ayant enregistré la récolte.
+6.5 Module Collecte
+Ce module permet d’enregistrer les apports de vanille verte au point de collecte.
+Champs principaux :
+numéro de bordereau ;
+date de collecte ;
+producteur ;
+parcelle ou récolte liée ;
+poids brut ;
+poids net ;
+collecteur ;
+signature producteur ;
+signature collecteur ;
+lot vert associé ;
+observations.
+Le système doit pouvoir générer un bordereau de collecte imprimable ou exportable en PDF.
+6.6 Module Lots verts
+Un lot vert correspond à une quantité de vanille verte collectée avant préparation.
+Champs principaux :
+code lot vert unique ;
+date de création ;
+producteur(s) lié(s) ;
+parcelle(s) liée(s) ;
+poids total ;
+statut : collecté, en préparation, transformé, bloqué ;
+destination : transformation / attente / rejet ;
+observations.
+6.7 Module Transformation / Préparation
+Ce module est central. Il permet de suivre la transformation de la vanille verte en vanille préparée.
+Le système doit permettre de sélectionner un ou plusieurs lots verts en entrée, puis de créer plusieurs lots préparés en sortie selon les qualités obtenues après préparation et tri.
+Après préparation, la vanille doit pouvoir être classée en 4 qualités principales :
+Gourmet ;
+Standard ;
+TK ;
+Fendue.
+Informations à suivre :
+numéro d’opération de transformation ;
+date de début ;
+date de fin ;
+lots verts utilisés ;
+poids total en entrée ;
+étapes réalisées : échaudage, étuvage/fermentation, séchage, affinage, tri, calibrage, conditionnement ;
+responsable de transformation ;
+pertes constatées ;
+poids final total préparé ;
+répartition du poids par qualité : Gourmet, Standard, TK, Fendue ;
+rendement global ;
+rendement par qualité ;
+lots préparés créés ;
+observations qualité.
+Le système doit calculer automatiquement :
+perte en kg ;
+taux de perte ;
+rendement global ;
+rendement par qualité.
+Exemple :
+Pour 100 kg de vanille verte en entrée, l’opération de transformation peut produire :
+12 kg Gourmet ;
+5 kg Standard ;
+3 kg TK ;
+2 kg Fendue.
+Dans ce cas, le système doit créer ou permettre de créer quatre lots préparés distincts, chacun avec sa qualité, son poids, son stock et sa traçabilité.
+6.8 Module Lots préparés
+Un lot préparé correspond à une quantité de vanille prête à être stockée, vendue ou exportée.
+Champs principaux :
+code lot préparé unique ;
+date de création ;
+lots verts d’origine ;
+poids final ;
+catégorie/qualité ;
+humidité si disponible ;
+statut : en stock, réservé, vendu, exporté, bloqué ;
+emplacement stock ;
+observations.
+6.9 Module Stock
+Le module Stock doit suivre les entrées, sorties et emplacements des lots préparés.
+Fonctions attendues :
+entrée en stock ;
+sortie de stock ;
+transfert d’emplacement ;
+correction de stock avec justification ;
+consultation du stock disponible ;
+historique des mouvements.
+Champs principaux :
+lot préparé ;
+type de mouvement : entrée, sortie, transfert, correction ;
+date ;
+quantité ;
+emplacement ;
+utilisateur responsable ;
+justification ;
+observation.
+6.10 Module Vente / Export
+Ce module permet de suivre les sorties commerciales.
+Champs principaux :
+numéro vente/export ;
+date ;
+client ;
+lot(s) préparé(s) vendu(s) ;
+quantité vendue ;
+destination ;
+documents associés ;
+statut : préparé, expédié, clôturé.
+6.11 Module Traçabilité
+Le module Traçabilité doit permettre deux recherches :
+Recherche descendante
+À partir d’un producteur ou d’une parcelle, retrouver :
+Producteur → Parcelle → Récolte → Lot vert → Transformation → Lot préparé → Stock → Vente/export
+Recherche ascendante
+À partir d’un lot vendu/exporté, retrouver :
+Vente/export → Lot préparé → Transformation → Lots verts → Récoltes → Parcelles → Producteurs
+Le système doit afficher clairement :
+tous les lots liés ;
+les poids à chaque étape ;
+les dates ;
+les responsables ;
+les documents associés ;
+les éventuelles non-conformités.
+6.12 Module Inspections internes
+Le système doit permettre de planifier et réaliser les inspections internes du SCI.
+Champs principaux :
+producteur inspecté ;
+parcelle inspectée ;
+auditeur ;
+date ;
+checklist ;
+observations ;
+photos ;
+résultat : conforme, conforme avec réserve, non conforme ;
+signature auditeur ;
+signature producteur ;
+rapport PDF.
+6.13 Module Non-conformités
+Le système doit gérer les écarts détectés.
+Champs principaux :
+numéro de non-conformité ;
+date ;
+type : mineure ou majeure ;
+producteur concerné ;
+parcelle concernée ;
+lot concerné si applicable ;
+description ;
+décision ;
+action corrective ;
+responsable ;
+date limite ;
+statut : ouverte, en cours, clôturée ;
+sanction éventuelle ;
+pièces jointes.
+6.14 Module Documents
+La plateforme doit permettre de centraliser les documents du SCI.
+Documents concernés :
+contrats producteurs ;
+fiches parcelles ;
+rapports d’inspection ;
+bordereaux de collecte ;
+registres de stock ;
+rapports de transformation ;
+documents d’export ;
+certificats ;
+photos ;
+annexes du SCI.
+Fonctions attendues :
+upload ;
+classement par producteur, lot ou module ;
+téléchargement ;
+génération PDF ;
+historique.
+7. Règles de traçabilité
+La plateforme doit respecter les règles suivantes :
+Aucun lot vert ne peut être créé sans producteur identifié.
+Aucun lot vert ne peut être créé sans poids enregistré.
+Aucun lot vert ne peut être transformé sans opération de préparation enregistrée.
+Aucun lot préparé ne peut être créé sans lien avec un ou plusieurs lots verts.
+Aucun lot préparé ne peut être vendu/exporté sans entrée préalable en stock.
+Le poids vendu/exporté ne doit pas dépasser le stock disponible.
+Les pertes de transformation doivent être enregistrées.
+Les rendements doivent être calculés automatiquement.
+Un lot non conforme doit pouvoir être bloqué.
+Toute modification importante doit être historisée.
+8. Exigences documentaires
+La plateforme doit permettre de générer ou exporter :
+fiche producteur ;
+fiche parcelle ;
+bordereau de collecte ;
+rapport d’inspection ;
+fiche de non-conformité ;
+fiche de transformation ;
+fiche de stock ;
+rapport de traçabilité d’un lot ;
+rapport de synthèse pour audit.
+Formats souhaités :
+PDF ;
+Excel/CSV pour les exports de données.
+9. Exigences techniques générales
+La solution attendue doit être :
+accessible via navigateur web ;
+responsive mobile/tablette/ordinateur ;
+sécurisée par authentification ;
+basée sur des rôles et permissions ;
+sauvegardée régulièrement ;
+exportable ;
+évolutive ;
+simple d’utilisation pour des utilisateurs terrain.
+Une attention particulière doit être portée à l’usage en zone rurale. Un mode hors ligne ou une synchronisation différée serait un plus important.
+10. Priorités de développement
+Version 1 – Socle principal
+La première version doit couvrir :
+utilisateurs et rôles ;
+tableau de bord ;
+producteurs ;
+parcelles ;
+récoltes de vanille verte ;
+collecte ;
+lots verts ;
+transformation ;
+lots préparés ;
+stock simple ;
+traçabilité ascendante et descendante.
+Version 2 – SCI conformité
+La deuxième version doit ajouter :
+inspections internes ;
+non-conformités ;
+actions correctives ;
+documents ;
+rapports PDF.
+Version 3 – Améliorations avancées
+La troisième version pourra ajouter :
+QR codes sur les lots ;
+signature électronique ;
+mode hors ligne ;
+cartes GPS avancées ;
+tableaux de bord avancés ;
+accès auditeur externe ;
+alertes automatiques ;
+analyse des incohérences de volumes.
+11. Résultat attendu
+Le résultat attendu est une plateforme numérique permettant de gérer de manière fiable le SCI d’un groupement de producteurs de vanille biologique.
+La plateforme doit permettre au groupement de prouver à tout moment :
+l’origine de chaque lot ;
+la conformité des producteurs ;
+la cohérence des volumes ;
+les contrôles réalisés ;
+les non-conformités traitées ;
+les documents disponibles pour audit.
+L’objectif final est de disposer d’un outil professionnel facilitant la certification biologique, la traçabilité complète de la vanille et la préparation des audits externes.
+12. Workflows métier détaillés
+Cette section décrit les principaux parcours métier que la plateforme doit gérer. Chaque workflow doit être respecté par l’application afin d’éviter les erreurs de saisie, les ruptures de traçabilité et les incohérences de stock.
+12.1 Workflow Producteur
+Objectif : créer et suivre chaque producteur membre du groupement.
+Acteur principal : coordinateur SCI ou administrateur.
+Étapes : 1. Création de la fiche producteur. 2. Attribution d’un code producteur unique. 3. Saisie des informations personnelles. 4. Saisie du statut biologique. 5. Ajout des documents liés au producteur. 6. Validation de la fiche. 7. Possibilité d’archiver, suspendre ou exclure le producteur.
+Données obligatoires :
+code producteur ;
+nom ;
+village ;
+téléphone ;
+statut du producteur ;
+statut biologique ;
+date d’entrée dans le groupement.
+Contrôles à prévoir :
+deux producteurs ne peuvent pas avoir le même code ;
+un producteur suspendu ou exclu ne doit pas pouvoir fournir un lot bio ;
+une alerte doit apparaître si le contrat producteur est manquant.
+Documents générés : fiche producteur PDF, contrat d’engagement si prévu, historique producteur.
+12.2 Workflow Parcelle
+Objectif : identifier toutes les parcelles liées aux producteurs et suivre leur conformité.
+Acteur principal : coordinateur SCI, auditeur interne ou administrateur.
+Étapes : 1. Sélection du producteur. 2. Création d’une nouvelle parcelle. 3. Attribution d’un code parcelle unique. 4. Saisie des coordonnées GPS. 5. Saisie de la superficie. 6. Saisie des cultures présentes. 7. Évaluation des risques de contamination. 8. Ajout de photos si nécessaire. 9. Validation de la parcelle.
+Données obligatoires :
+code parcelle ;
+producteur lié ;
+superficie ;
+localisation ou village ;
+statut de conformité.
+Données recommandées : coordonnées GPS, photos, historique des intrants, cultures voisines, zone tampon, observations.
+Contrôles à prévoir :
+une parcelle doit toujours être liée à un producteur ;
+une parcelle non conforme ne doit pas permettre la création d’un lot bio ;
+si le risque de contamination est élevé, une alerte doit apparaître.
+Documents générés : fiche parcelle PDF, carte ou localisation, historique parcellaire.
+12.3 Workflow Récolte vanille verte
+Objectif : enregistrer la vanille verte récoltée avant toute préparation.
+Acteur principal : responsable collecte, coordinateur SCI ou agent terrain.
+Étapes : 1. Sélection du producteur. 2. Sélection de la parcelle concernée. 3. Saisie de la date de récolte. 4. Saisie du poids récolté. 5. Contrôle visuel de la qualité et de la maturité. 6. Création d’un enregistrement de récolte. 7. Association de la récolte à une future collecte ou à un lot vert.
+Données obligatoires :
+producteur ;
+parcelle ;
+date de récolte ;
+poids de vanille verte ;
+utilisateur ayant saisi l’information.
+Données recommandées : maturité, qualité visuelle, photos, observation sur l’état des gousses, nombre de sacs ou contenants.
+Contrôles à prévoir :
+impossible d’enregistrer une récolte sur une parcelle non conforme ;
+impossible d’enregistrer une récolte pour un producteur suspendu ou exclu ;
+alerte si le poids récolté est anormalement élevé par rapport à la parcelle ;
+la récolte doit rester traçable jusqu’au lot préparé final.
+Documents générés : fiche récolte, historique récolte par producteur, historique récolte par parcelle.
+12.4 Workflow Collecte de vanille verte
+Objectif : enregistrer les apports de vanille verte au point de collecte et créer les lots verts.
+Acteur principal : responsable collecte.
+Étapes : 1. Le producteur apporte la vanille verte. 2. Le responsable collecte identifie le producteur. 3. Le responsable collecte sélectionne la récolte ou la parcelle concernée. 4. La vanille est pesée. 5. Le poids brut et/ou net est enregistré. 6. Un bordereau de collecte est créé. 7. Le producteur et le collecteur signent. 8. Un lot vert est créé ou alimenté. 9. Le lot vert passe au statut « collecté ».
+Données obligatoires :
+numéro de bordereau ;
+date de collecte ;
+producteur ;
+poids collecté ;
+responsable collecte ;
+lot vert associé.
+Données recommandées : parcelle liée, récolte liée, qualité observée, nombre de sacs, photos, signature producteur, signature collecteur.
+Contrôles à prévoir :
+un producteur non conforme ne peut pas livrer de vanille bio ;
+un poids collecté ne peut pas être nul ou négatif ;
+la quantité collectée ne doit pas dépasser de manière incohérente la récolte déclarée ;
+chaque collecte doit être rattachée à un lot vert ;
+chaque bordereau doit avoir un numéro unique.
+Documents générés : bordereau de collecte PDF, reçu producteur, registre de collecte journalier, historique des collectes.
+12.5 Workflow Lot vert
+Objectif : créer et suivre les lots de vanille verte avant préparation.
+Acteur principal : responsable collecte ou coordinateur SCI.
+Étapes : 1. Création du lot vert à partir d’une ou plusieurs collectes. 2. Attribution d’un code lot vert unique. 3. Association aux producteurs et parcelles d’origine. 4. Saisie du poids total. 5. Statut initial : collecté. 6. Affectation à une transformation future. 7. Suivi du changement de statut : collecté, en préparation, transformé, bloqué.
+Données obligatoires :
+code lot vert ;
+date de création ;
+poids total ;
+collectes liées ;
+producteur(s) d’origine ;
+statut.
+Contrôles à prévoir :
+un lot vert doit toujours avoir au moins une collecte liée ;
+le poids du lot vert doit correspondre à la somme des collectes liées ;
+un lot vert bloqué ne peut pas être transformé ;
+un lot vert déjà transformé ne peut pas être réutilisé sans justification.
+Documents générés : fiche lot vert, historique du lot, rapport de composition du lot.
+12.6 Workflow Transformation / Préparation
+Objectif : tracer la transformation de la vanille verte en vanille préparée, puis classer la vanille préparée par qualité.
+Acteur principal : responsable transformation / préparation.
+Étapes : 1. Création d’une opération de transformation. 2. Sélection d’un ou plusieurs lots verts en entrée. 3. Enregistrement du poids total entrant. 4. Saisie des étapes de préparation réalisées. 5. Suivi des pertes de poids. 6. Saisie du poids final préparé total. 7. Tri et classification de la vanille préparée en quatre qualités : Gourmet, Standard, TK, Fendue. 8. Saisie du poids obtenu pour chaque qualité. 9. Calcul automatique du rendement global. 10. Calcul automatique du rendement par qualité. 11. Création d’un ou plusieurs lots préparés, séparés par qualité. 12. Clôture de l’opération.
+Étapes de préparation à tracer :
+échaudage ;
+étuvage / fermentation ;
+séchage ;
+affinage ;
+tri ;
+calibrage ;
+conditionnement.
+Qualités de sortie à gérer :
+Gourmet ;
+Standard ;
+TK ;
+Fendue.
+Données obligatoires :
+numéro d’opération ;
+date de début ;
+lot(s) vert(s) utilisés ;
+poids total entrant ;
+poids final préparé total ;
+poids par qualité ;
+responsable ;
+lot(s) préparé(s) créé(s).
+Calculs automatiques :
+perte en kg = poids entrant - poids final préparé total ;
+taux de perte = perte / poids entrant ;
+rendement global = poids final préparé total / poids entrant ;
+rendement Gourmet = poids Gourmet / poids entrant ;
+rendement Standard = poids Standard / poids entrant ;
+rendement TK = poids TK / poids entrant ;
+rendement Fendue = poids Fendue / poids entrant.
+Contrôles à prévoir :
+impossible de créer une transformation sans lot vert ;
+impossible d’utiliser un lot vert bloqué ;
+le poids final total ne peut pas être supérieur au poids entrant sauf justification exceptionnelle ;
+la somme des poids par qualité doit correspondre au poids final préparé total ;
+un rendement anormal doit déclencher une alerte ;
+chaque lot préparé doit être lié à l’opération de transformation ;
+chaque lot préparé doit avoir une qualité obligatoire.
+Documents générés : fiche de transformation, rapport de rendement global, rapport de rendement par qualité, historique des lots verts utilisés, fiches lots préparés.
+12.7 Workflow Lot préparé
+Objectif : créer et suivre les lots de vanille préparée prêts à être stockés, vendus ou exportés.
+Acteur principal : responsable transformation, responsable stock ou coordinateur SCI.
+Étapes : 1. Création automatique ou manuelle du lot préparé après transformation. 2. Attribution d’un code lot préparé unique. 3. Association aux lots verts d’origine. 4. Saisie du poids final. 5. Saisie de la qualité ou catégorie. 6. Entrée en stock. 7. Suivi du statut : en stock, réservé, vendu, exporté, bloqué.
+Données obligatoires :
+code lot préparé ;
+date de création ;
+opération de transformation liée ;
+lots verts d’origine ;
+poids final ;
+statut.
+Contrôles à prévoir :
+un lot préparé doit toujours avoir un lot vert d’origine ;
+un lot préparé bloqué ne peut pas être vendu ;
+le poids du lot préparé doit correspondre à la sortie de transformation ;
+tout changement de statut doit être historisé.
+Documents générés : fiche lot préparé, rapport de traçabilité, étiquette lot si nécessaire.
+12.8 Workflow Stock
+Objectif : suivre les entrées, sorties et emplacements des lots préparés.
+Acteur principal : responsable stock.
+Étapes : 1. Entrée du lot préparé en stock. 2. Attribution d’un emplacement. 3. Suivi des mouvements. 4. Sortie partielle ou totale pour vente/export. 5. Correction éventuelle avec justification. 6. Inventaire périodique.
+Données obligatoires :
+lot préparé ;
+type de mouvement ;
+date ;
+quantité ;
+emplacement ;
+responsable.
+Contrôles à prévoir :
+le stock ne peut jamais devenir négatif ;
+une sortie ne peut pas dépasser la quantité disponible ;
+un lot bloqué ne peut pas sortir pour vente/export ;
+toute correction de stock doit être justifiée ;
+l’historique des mouvements doit être conservé.
+Documents générés : fiche de stock, registre des mouvements, inventaire, rapport de stock disponible.
+12.9 Workflow Vente / Export
+Objectif : enregistrer la sortie commerciale des lots préparés.
+Acteur principal : coordinateur SCI, responsable stock ou administrateur.
+Étapes : 1. Création d’une vente ou export. 2. Sélection du client ou destinataire. 3. Sélection des lots préparés concernés. 4. Saisie des quantités vendues/exportées. 5. Vérification du stock disponible. 6. Association des documents commerciaux ou de certification. 7. Sortie de stock. 8. Clôture de la vente/export.
+Données obligatoires :
+numéro de vente/export ;
+date ;
+client ou destination ;
+lot(s) préparé(s) ;
+quantité ;
+statut.
+Contrôles à prévoir :
+un lot vendu doit être disponible en stock ;
+un lot bloqué ne peut pas être vendu ;
+la quantité vendue ne peut pas dépasser le stock ;
+après validation, le stock doit être mis à jour automatiquement ;
+la vente/export doit conserver la traçabilité complète des lots.
+Documents générés : fiche vente/export, rapport de traçabilité du lot vendu, documents associés, rapport de sortie de stock.
+12.10 Workflow Inspection interne
+Objectif : permettre au SCI de contrôler les producteurs, les parcelles et les pratiques biologiques.
+Acteur principal : auditeur interne.
+Étapes : 1. Planification de l’inspection. 2. Sélection du producteur à inspecter. 3. Sélection de la ou des parcelles. 4. Remplissage de la checklist. 5. Ajout d’observations et photos. 6. Détection éventuelle de non-conformités. 7. Signature du producteur et de l’auditeur. 8. Génération du rapport. 9. Validation par le coordinateur SCI.
+Données obligatoires :
+producteur ;
+auditeur ;
+date ;
+résultat ;
+checklist ;
+signature ou validation.
+Contrôles à prévoir :
+un auditeur ne doit pas inspecter sa propre exploitation ;
+une inspection doit avoir un résultat clair ;
+une non-conformité détectée doit pouvoir créer automatiquement une fiche non-conformité ;
+un producteur non inspecté doit apparaître comme inspection manquante.
+Documents générés : rapport d’inspection PDF, historique des inspections, synthèse annuelle des inspections.
+12.11 Workflow Non-conformité
+Objectif : gérer les écarts détectés dans le SCI.
+Acteur principal : coordinateur SCI ou auditeur interne.
+Étapes : 1. Création de la non-conformité. 2. Classification : mineure ou majeure. 3. Association au producteur, parcelle ou lot concerné. 4. Définition de l’action corrective. 5. Attribution d’un responsable. 6. Définition d’une date limite. 7. Suivi de la résolution. 8. Clôture après vérification.
+Données obligatoires :
+numéro de non-conformité ;
+date ;
+type ;
+description ;
+niveau de gravité ;
+responsable ;
+statut.
+Contrôles à prévoir :
+une non-conformité majeure doit pouvoir bloquer un producteur, une parcelle ou un lot ;
+une non-conformité ouverte doit apparaître dans le tableau de bord ;
+une action corrective en retard doit générer une alerte ;
+la clôture doit être validée par une personne autorisée.
+Documents générés : fiche non-conformité, registre des non-conformités, historique des actions correctives.
+12.12 Workflow Traçabilité
+Objectif : permettre de retrouver l’historique complet d’un produit dans les deux sens.
+Recherche descendante : Producteur → Parcelle → Récoltes → Collectes → Lots verts → Transformations → Lots préparés → Stock → Vente/export
+Recherche ascendante : Vente/export → Lot préparé → Transformation → Lots verts → Collectes → Récoltes → Parcelles → Producteurs
+Informations à afficher :
+codes des lots ;
+poids à chaque étape ;
+dates ;
+responsables ;
+statuts ;
+documents associés ;
+non-conformités éventuelles ;
+rendements de transformation.
+Contrôles à prévoir :
+aucune rupture de lien ne doit exister entre lot préparé et lots verts ;
+les poids doivent rester cohérents ;
+toute incohérence doit être signalée ;
+un rapport complet doit pouvoir être exporté.
+Documents générés : rapport de traçabilité complet, rapport de composition d’un lot préparé, rapport mass balance.
+13. Modèle de données – Base de données
+Cette section décrit les principales tables nécessaires au fonctionnement de la plateforme.
+Le développeur devra créer une base de données relationnelle permettant de conserver tous les liens de traçabilité entre producteurs, parcelles, récoltes, lots verts, transformations, lots préparés, stock et ventes/export.
+13.1 Table utilisateurs
+Cette table contient les comptes utilisateurs de la plateforme.
+Champs principaux :
+id utilisateur ;
+nom ;
+prénom ;
+email ;
+téléphone ;
+mot de passe sécurisé ;
+rôle utilisateur ;
+statut actif/inactif ;
+date création ;
+dernière connexion.
+Relations :
+un utilisateur peut réaliser plusieurs inspections ;
+un utilisateur peut créer plusieurs collectes ;
+un utilisateur peut gérer plusieurs opérations.
+13.2 Table producteurs
+Champs principaux :
+id producteur ;
+code producteur ;
+nom ;
+prénom ;
+téléphone ;
+village ;
+date entrée ;
+statut producteur ;
+statut biologique ;
+surface totale ;
+observations.
+Relations :
+un producteur possède plusieurs parcelles ;
+un producteur peut avoir plusieurs récoltes ;
+un producteur peut avoir plusieurs inspections ;
+un producteur peut avoir plusieurs non-conformités.
+13.3 Table parcelles
+Champs principaux :
+id parcelle ;
+code parcelle ;
+producteur_id ;
+village ;
+coordonnées GPS ;
+superficie ;
+culture principale ;
+cultures associées ;
+statut conformité ;
+risque contamination ;
+observations.
+Relations :
+une parcelle appartient à un producteur ;
+une parcelle peut avoir plusieurs récoltes ;
+une parcelle peut avoir plusieurs inspections ;
+une parcelle peut avoir plusieurs non-conformités.
+13.4 Table récoltes_vanille_verte
+Champs principaux :
+id récolte ;
+code récolte ;
+producteur_id ;
+parcelle_id ;
+date récolte ;
+poids récolté ;
+qualité ;
+maturité ;
+observations ;
+utilisateur création.
+Relations :
+une récolte appartient à un producteur ;
+une récolte appartient à une parcelle ;
+une récolte peut être liée à une collecte.
+13.5 Table collectes
+Champs principaux :
+id collecte ;
+numéro bordereau ;
+date collecte ;
+producteur_id ;
+récolte_id ;
+poids brut ;
+poids net ;
+responsable collecte ;
+signature producteur ;
+signature collecteur ;
+observations.
+Relations :
+une collecte appartient à un producteur ;
+une collecte peut alimenter un lot vert.
+13.6 Table lots_verts
+Champs principaux :
+id lot vert ;
+code lot vert ;
+date création ;
+poids total ;
+statut ;
+destination ;
+observations.
+Relations :
+un lot vert peut contenir plusieurs collectes ;
+un lot vert peut être utilisé dans plusieurs opérations de transformation.
+13.7 Table lot_vert_collectes
+Table de liaison entre collectes et lots verts.
+Champs principaux :
+id ;
+lot_vert_id ;
+collecte_id ;
+poids associé.
+Objectif :
+Permettre qu’un lot vert soit constitué de plusieurs collectes.
+13.8 Table transformations
+Champs principaux :
+id transformation ;
+numéro transformation ;
+date début ;
+date fin ;
+poids entrant ;
+poids sortant ;
+pertes ;
+rendement ;
+responsable ;
+observations.
+Relations :
+une transformation utilise un ou plusieurs lots verts ;
+une transformation crée un ou plusieurs lots préparés.
+13.9 Table transformation_lots_verts
+Table de liaison entre transformations et lots verts.
+Champs principaux :
+id ;
+transformation_id ;
+lot_vert_id ;
+poids utilisé.
+Objectif :
+Tracer précisément quels lots verts ont été utilisés dans chaque transformation.
+13.10 Table lots_prepares
+Champs principaux :
+id lot préparé ;
+code lot préparé ;
+transformation_id ;
+qualité : Gourmet, Standard, TK ou Fendue ;
+poids final ;
+humidité ;
+statut ;
+emplacement stock ;
+observations.
+Relations :
+un lot préparé provient d’une transformation ;
+un lot préparé possède obligatoirement une qualité ;
+une transformation peut créer plusieurs lots préparés de qualités différentes ;
+un lot préparé peut avoir plusieurs mouvements de stock ;
+un lot préparé peut être vendu ou exporté.
+13.11 Table stock_mouvements
+Champs principaux :
+id mouvement ;
+lot_prepare_id ;
+type mouvement ;
+date ;
+quantité ;
+emplacement ;
+utilisateur ;
+justification ;
+observations.
+Relations :
+un mouvement appartient à un lot préparé.
+13.12 Table ventes_exports
+Champs principaux :
+id vente/export ;
+numéro vente ;
+date ;
+client ;
+destination ;
+statut ;
+observations.
+Relations :
+une vente/export peut contenir plusieurs lots préparés.
+13.13 Table vente_lots_prepares
+Table de liaison entre ventes/exports et lots préparés.
+Champs principaux :
+id ;
+vente_export_id ;
+lot_prepare_id ;
+quantité vendue.
+Objectif :
+Permettre qu’une vente contienne plusieurs lots préparés.
+13.14 Table inspections
+Champs principaux :
+id inspection ;
+producteur_id ;
+parcelle_id ;
+auditeur_id ;
+date inspection ;
+résultat ;
+checklist ;
+observations ;
+signatures ;
+rapport PDF.
+Relations :
+une inspection appartient à un producteur ;
+une inspection peut être liée à une parcelle ;
+une inspection peut générer une non-conformité.
+13.15 Table non_conformites
+Champs principaux :
+id non-conformité ;
+numéro NC ;
+date ;
+type ;
+gravité ;
+producteur_id ;
+parcelle_id ;
+lot concerné ;
+description ;
+action corrective ;
+responsable ;
+date limite ;
+statut ;
+sanction ;
+observations.
+Relations :
+une non-conformité peut être liée à un producteur ;
+une non-conformité peut être liée à une parcelle ;
+une non-conformité peut être liée à un lot.
+13.16 Table documents
+Champs principaux :
+id document ;
+type document ;
+nom fichier ;
+chemin stockage ;
+date upload ;
+utilisateur upload ;
+producteur_id ;
+parcelle_id ;
+lot_vert_id ;
+lot_prepare_id ;
+inspection_id ;
+non_conformite_id.
+Objectif :
+Centraliser tous les documents du SCI dans un seul système.
+14. Principes techniques de traçabilité
+Le développeur devra garantir les principes suivants :
+Chaque lot préparé doit pouvoir remonter jusqu’aux producteurs d’origine.
+Chaque transformation doit conserver l’historique exact des lots verts utilisés.
+Chaque vente/export doit conserver la liste exacte des lots préparés vendus.
+Aucun lien de traçabilité ne doit pouvoir être supprimé sans historique.
+Les calculs de rendement et de pertes doivent être automatiques.
+Les incohérences de poids doivent déclencher des alertes.
+Les suppressions de données sensibles doivent être limitées ou historisées.
+Toutes les opérations importantes doivent conserver :
+date ;
+utilisateur ;
+modification effectuée.
+15. Maquettes fonctionnelles – Écrans à prévoir
+Cette section décrit les principaux écrans de l’application. Il ne s’agit pas encore d’un design graphique final, mais d’une description fonctionnelle destinée à guider le développeur.
+15.1 Écran de connexion
+Objectif : permettre aux utilisateurs autorisés d’accéder à la plateforme.
+Éléments à afficher :
+logo ou nom de la plateforme ;
+champ email ou identifiant ;
+champ mot de passe ;
+bouton « Se connecter » ;
+lien « mot de passe oublié » ;
+message d’erreur en cas d’identifiants incorrects.
+Règles :
+l’utilisateur doit être redirigé vers le tableau de bord après connexion ;
+les menus visibles dépendent du rôle utilisateur ;
+un utilisateur inactif ne doit pas pouvoir se connecter.
+15.2 Tableau de bord
+Objectif : donner une vue globale de l’activité SCI.
+Éléments à afficher :
+nombre de producteurs actifs ;
+nombre de parcelles ;
+quantité de vanille verte collectée ;
+nombre de lots verts ;
+nombre de lots préparés ;
+stock disponible ;
+inspections réalisées ;
+inspections restantes ;
+non-conformités ouvertes ;
+lots bloqués ;
+ventes/exports récents.
+Actions rapides :
+ajouter un producteur ;
+ajouter une parcelle ;
+enregistrer une collecte ;
+créer une transformation ;
+consulter la traçabilité ;
+créer une inspection.
+15.3 Navigation principale
+La plateforme doit comporter une navigation simple, idéalement sous forme de menu latéral.
+Menus principaux :
+Tableau de bord ;
+Producteurs ;
+Parcelles ;
+Récoltes vertes ;
+Collecte ;
+Lots verts ;
+Transformation ;
+Lots préparés ;
+Stock ;
+Vente / Export ;
+Traçabilité ;
+Inspections ;
+Non-conformités ;
+Documents ;
+Utilisateurs / Paramètres.
+15.4 Écran liste Producteurs
+Objectif : consulter et gérer les producteurs.
+Éléments à afficher :
+bouton « Ajouter un producteur » ;
+barre de recherche ;
+filtres : village, statut, statut biologique ;
+tableau des producteurs.
+Colonnes du tableau :
+code producteur ;
+nom ;
+village ;
+téléphone ;
+statut producteur ;
+statut biologique ;
+nombre de parcelles ;
+actions.
+Actions disponibles :
+voir fiche ;
+modifier ;
+archiver ;
+suspendre ;
+exporter fiche PDF.
+15.5 Écran fiche Producteur
+Objectif : consulter toutes les informations liées à un producteur.
+Sections à afficher :
+Informations générales.
+Parcelles liées.
+Récoltes liées.
+Collectes liées.
+Inspections.
+Non-conformités.
+Documents.
+Historique.
+Actions disponibles :
+modifier la fiche ;
+ajouter une parcelle ;
+ajouter un document ;
+créer une inspection ;
+générer fiche producteur PDF.
+15.6 Formulaire Producteur
+Champs à prévoir :
+code producteur ;
+nom ;
+prénom ;
+village ;
+téléphone ;
+date d’entrée ;
+statut producteur ;
+statut biologique ;
+surface totale ;
+observations ;
+upload contrat ou document.
+Contrôles :
+code producteur unique ;
+nom obligatoire ;
+village obligatoire ;
+statut obligatoire.
+15.7 Écran liste Parcelles
+Éléments à afficher :
+bouton « Ajouter une parcelle » ;
+recherche par code parcelle ou producteur ;
+filtres : village, conformité, risque contamination ;
+tableau des parcelles.
+Colonnes :
+code parcelle ;
+producteur ;
+village ;
+superficie ;
+GPS ;
+statut conformité ;
+risque contamination ;
+actions.
+15.8 Fiche Parcelle
+Sections à afficher :
+informations générales ;
+producteur propriétaire ;
+localisation GPS ;
+cultures présentes ;
+historique des intrants ;
+risques de contamination ;
+récoltes associées ;
+inspections ;
+photos ;
+documents.
+Actions :
+modifier ;
+ajouter récolte ;
+ajouter inspection ;
+générer fiche parcelle PDF.
+15.9 Écran Récoltes vanille verte
+Éléments à afficher :
+bouton « Ajouter une récolte » ;
+filtres par producteur, parcelle, date ;
+total poids récolté ;
+tableau des récoltes.
+Colonnes :
+code récolte ;
+date ;
+producteur ;
+parcelle ;
+poids récolté ;
+qualité ;
+statut ;
+actions.
+Actions :
+voir ;
+modifier ;
+associer à collecte ;
+exporter.
+15.10 Formulaire Récolte
+Champs :
+producteur ;
+parcelle ;
+date récolte ;
+poids récolté ;
+qualité ;
+maturité ;
+nombre de sacs ;
+photos ;
+observations.
+Contrôles :
+producteur obligatoire ;
+parcelle obligatoire ;
+poids supérieur à zéro ;
+parcelle conforme ;
+producteur actif.
+15.11 Écran Collecte
+Éléments à afficher :
+bouton « Nouvelle collecte » ;
+registre journalier ;
+filtres par date, producteur, collecteur ;
+total collecté.
+Colonnes :
+numéro bordereau ;
+date ;
+producteur ;
+poids brut ;
+poids net ;
+lot vert associé ;
+collecteur ;
+actions.
+Actions :
+voir bordereau ;
+imprimer PDF ;
+modifier si autorisé ;
+associer à lot vert.
+15.12 Formulaire Collecte
+Champs :
+producteur ;
+récolte liée ;
+parcelle ;
+date collecte ;
+poids brut ;
+poids net ;
+qualité observée ;
+nombre de sacs ;
+collecteur ;
+signature producteur ;
+signature collecteur ;
+observations.
+Contrôles :
+poids net obligatoire ;
+poids net supérieur à zéro ;
+producteur actif ;
+producteur conforme ;
+bordereau unique.
+15.13 Écran Lots verts
+Éléments à afficher :
+bouton « Créer lot vert » ;
+filtres par statut, date, producteur ;
+total poids lots verts ;
+tableau des lots verts.
+Colonnes :
+code lot vert ;
+date création ;
+poids total ;
+nombre de collectes ;
+statut ;
+destination ;
+actions.
+Actions :
+voir composition ;
+envoyer en transformation ;
+bloquer ;
+générer fiche lot.
+15.14 Fiche Lot vert
+Sections :
+informations générales ;
+collectes composant le lot ;
+producteurs d’origine ;
+parcelles d’origine ;
+poids total ;
+statut ;
+documents ;
+historique.
+Actions :
+modifier ;
+bloquer ;
+créer opération de transformation ;
+générer rapport de composition.
+15.15 Écran Transformation / Préparation
+Éléments à afficher :
+bouton « Nouvelle transformation » ;
+liste des transformations ;
+filtres par date, responsable, statut ;
+indicateurs : poids entrant, poids sortant, rendement moyen.
+Colonnes :
+numéro transformation ;
+date début ;
+date fin ;
+lots verts utilisés ;
+poids entrant ;
+poids sortant ;
+rendement ;
+statut ;
+actions.
+15.16 Formulaire Transformation
+Champs :
+numéro transformation ;
+date début ;
+date fin ;
+sélection des lots verts ;
+poids entrant calculé ;
+étapes réalisées ;
+responsable ;
+poids final préparé ;
+pertes calculées ;
+rendement calculé ;
+observations qualité ;
+photos ;
+création du ou des lots préparés.
+Contrôles :
+au moins un lot vert obligatoire ;
+lot vert non bloqué ;
+poids final inférieur ou égal au poids entrant sauf justification ;
+rendement anormal = alerte ;
+création obligatoire d’un lot préparé à la clôture.
+15.17 Écran Lots préparés
+Éléments à afficher :
+bouton « Ajouter / Créer lot préparé » ;
+filtres par statut, qualité, emplacement ;
+tableau des lots préparés.
+Colonnes :
+code lot préparé ;
+date création ;
+poids final ;
+qualité ;
+humidité ;
+statut ;
+emplacement ;
+actions.
+Actions :
+voir traçabilité ;
+entrer en stock ;
+bloquer ;
+vendre/exporter ;
+imprimer fiche lot.
+15.18 Fiche Lot préparé
+Sections :
+informations générales ;
+transformation d’origine ;
+lots verts d’origine ;
+producteurs et parcelles d’origine ;
+stock ;
+mouvements ;
+ventes/exports ;
+documents ;
+non-conformités éventuelles.
+Actions :
+générer rapport de traçabilité ;
+générer étiquette ;
+bloquer ;
+créer sortie stock.
+15.19 Écran Stock
+Éléments à afficher :
+stock total disponible ;
+stock par lot ;
+stock par qualité ;
+stock par emplacement ;
+mouvements récents.
+Actions :
+entrée stock ;
+sortie stock ;
+transfert emplacement ;
+correction avec justification ;
+export inventaire.
+Colonnes :
+lot préparé ;
+quantité disponible ;
+emplacement ;
+statut ;
+dernière entrée ;
+dernière sortie ;
+actions.
+15.20 Écran Vente / Export
+Éléments à afficher :
+bouton « Nouvelle vente/export » ;
+liste des ventes/exports ;
+filtres par client, destination, date, statut.
+Colonnes :
+numéro vente/export ;
+date ;
+client ;
+destination ;
+quantité ;
+statut ;
+actions.
+Actions :
+voir détail ;
+ajouter documents ;
+générer rapport ;
+clôturer vente/export.
+15.21 Écran Traçabilité
+Objectif : rechercher l’historique complet d’un produit.
+Modes de recherche :
+par code producteur ;
+par code parcelle ;
+par code récolte ;
+par code lot vert ;
+par code lot préparé ;
+par numéro vente/export.
+Affichage attendu :
+frise ou arbre de traçabilité ;
+liens entre étapes ;
+poids à chaque étape ;
+dates ;
+responsables ;
+documents ;
+non-conformités éventuelles.
+Actions :
+exporter rapport de traçabilité PDF ;
+exporter données Excel ;
+imprimer.
+15.22 Écran Inspections
+Éléments à afficher :
+bouton « Nouvelle inspection » ;
+planning ou liste des inspections ;
+filtres par producteur, auditeur, résultat, date.
+Colonnes :
+date ;
+producteur ;
+parcelle ;
+auditeur ;
+résultat ;
+non-conformité liée ;
+actions.
+Actions :
+remplir checklist ;
+ajouter photos ;
+signer ;
+générer rapport PDF ;
+créer non-conformité.
+15.23 Écran Non-conformités
+Éléments à afficher :
+bouton « Nouvelle non-conformité » ;
+filtres : ouverte, en cours, clôturée, mineure, majeure ;
+tableau de suivi.
+Colonnes :
+numéro NC ;
+date ;
+gravité ;
+producteur/parcelle/lot concerné ;
+action corrective ;
+date limite ;
+statut ;
+actions.
+Actions :
+voir détail ;
+ajouter preuve de correction ;
+clôturer ;
+bloquer producteur/parcelle/lot ;
+générer fiche NC.
+15.24 Écran Documents
+Éléments à afficher :
+bibliothèque documentaire ;
+recherche ;
+filtres par type, producteur, parcelle, lot, inspection ;
+bouton upload.
+Types de documents :
+contrat producteur ;
+fiche parcelle ;
+rapport inspection ;
+bordereau collecte ;
+rapport transformation ;
+fiche lot ;
+certificat ;
+document export ;
+photo ;
+autre.
+Actions :
+consulter ;
+télécharger ;
+remplacer avec historique ;
+supprimer si autorisé ;
+rattacher à un objet métier.
+15.25 Écran Utilisateurs et rôles
+Éléments à afficher :
+liste des utilisateurs ;
+rôle ;
+statut ;
+dernière connexion.
+Actions :
+créer utilisateur ;
+modifier rôle ;
+désactiver compte ;
+réinitialiser mot de passe.
+Rôles minimum :
+administrateur ;
+coordinateur SCI ;
+auditeur interne ;
+responsable collecte ;
+responsable transformation ;
+responsable stock ;
+auditeur externe lecture seule.
+16. Parcours utilisateur prioritaires à tester
+Le développeur devra tester au minimum les parcours suivants :
+Créer un producteur puis une parcelle.
+Enregistrer une récolte de vanille verte.
+Enregistrer une collecte et générer un bordereau.
+Créer un lot vert à partir de la collecte.
+Transformer le lot vert en lot préparé.
+Entrer le lot préparé en stock.
+Vendre ou exporter une partie du lot.
+Remonter la traçabilité depuis la vente jusqu’au producteur.
+Créer une inspection interne.
+Créer et clôturer une non-conformité.
+Ces parcours doivent fonctionner sans rupture de données et sans incohérence de poids.
+17. Documents PDF, exports et impressions
+Cette section décrit les documents que la plateforme doit pouvoir générer automatiquement.
+Les documents générés doivent être utilisables :
+pour les audits SCI ;
+pour les audits Ecocert ;
+pour les opérations terrain ;
+pour les archives ;
+pour les ventes et exports ;
+pour les contrôles internes.
+Formats attendus :
+PDF imprimable ;
+Excel/CSV pour certaines extractions.
+Tous les documents doivent pouvoir être téléchargés, imprimés et archivés.
+17.1 Fiche Producteur
+Objectif
+Afficher toutes les informations liées à un producteur.
+Informations à afficher
+code producteur ;
+nom/prénom ;
+village ;
+téléphone ;
+statut producteur ;
+statut biologique ;
+date entrée ;
+surface totale ;
+liste des parcelles ;
+historique inspections ;
+historique non-conformités ;
+observations ;
+documents associés.
+Fonctionnalités
+téléchargement PDF ;
+impression ;
+export Excel si nécessaire.
+17.2 Fiche Parcelle
+Informations à afficher
+code parcelle ;
+producteur lié ;
+coordonnées GPS ;
+superficie ;
+cultures ;
+historique des intrants ;
+statut conformité ;
+risque contamination ;
+inspections liées ;
+photos ;
+observations.
+Fonctionnalités
+PDF imprimable ;
+affichage carte GPS si disponible.
+17.3 Fiche Récolte vanille verte
+Informations à afficher
+code récolte ;
+producteur ;
+parcelle ;
+date récolte ;
+poids récolté ;
+qualité observée ;
+maturité ;
+utilisateur ayant enregistré ;
+photos ;
+observations.
+Fonctionnalités
+PDF ;
+historique récoltes.
+17.4 Bordereau de collecte
+Objectif
+Document officiel de collecte de vanille verte.
+Informations à afficher
+numéro bordereau ;
+date ;
+producteur ;
+parcelle ;
+récolte liée ;
+poids brut ;
+poids net ;
+qualité observée ;
+lot vert associé ;
+collecteur ;
+signatures ;
+observations.
+Fonctionnalités
+PDF imprimable ;
+génération automatique ;
+possibilité d’impression immédiate ;
+archivage automatique.
+17.5 Fiche Lot vert
+Informations à afficher
+code lot vert ;
+date création ;
+poids total ;
+collectes associées ;
+producteurs d’origine ;
+parcelles d’origine ;
+statut ;
+destination ;
+historique ;
+observations.
+Fonctionnalités
+rapport PDF ;
+export composition du lot ;
+historique complet.
+17.6 Rapport de transformation
+Objectif
+Tracer la préparation de la vanille verte en vanille préparée.
+Informations à afficher
+numéro transformation ;
+date début ;
+date fin ;
+lots verts utilisés ;
+poids total entrant ;
+étapes réalisées ;
+pertes ;
+rendement global ;
+répartition qualité ;
+rendement par qualité ;
+responsable ;
+observations ;
+photos éventuelles.
+Répartition qualité obligatoire
+Le rapport doit afficher :
+poids Gourmet ;
+poids Standard ;
+poids TK ;
+poids Fendue.
+Fonctionnalités
+PDF ;
+impression ;
+export Excel ;
+archivage.
+17.7 Fiche Lot préparé
+Informations à afficher
+code lot préparé ;
+qualité : Gourmet / Standard / TK / Fendue ;
+poids final ;
+humidité ;
+transformation liée ;
+lots verts d’origine ;
+producteurs d’origine ;
+parcelles d’origine ;
+emplacement stock ;
+statut ;
+historique ;
+observations.
+Fonctionnalités
+fiche PDF ;
+impression ;
+génération étiquette ;
+export traçabilité.
+17.8 Étiquette lot
+Objectif
+Permettre l’identification physique des lots.
+Informations à afficher
+code lot ;
+qualité ;
+poids ;
+date ;
+emplacement ;
+QR code éventuel.
+Fonctionnalités
+impression étiquette ;
+format compact ;
+QR code optionnel.
+17.9 Fiche Stock
+Informations à afficher
+lot préparé ;
+qualité ;
+emplacement ;
+quantité disponible ;
+mouvements ;
+entrées ;
+sorties ;
+historique ;
+observations.
+Fonctionnalités
+PDF ;
+export Excel ;
+impression inventaire.
+17.10 Rapport inventaire stock
+Informations à afficher
+stock total ;
+stock par qualité ;
+stock par emplacement ;
+stock par lot ;
+lots bloqués ;
+mouvements récents.
+Fonctionnalités
+PDF ;
+export Excel ;
+impression.
+17.11 Fiche Vente / Export
+Informations à afficher
+numéro vente/export ;
+date ;
+client ;
+destination ;
+lots préparés ;
+qualité ;
+quantité ;
+documents associés ;
+statut.
+Fonctionnalités
+PDF ;
+export ;
+archivage.
+17.12 Rapport de traçabilité complet
+Objectif
+Afficher la traçabilité complète d’un lot.
+Informations à afficher
+lot préparé ;
+qualité ;
+transformation liée ;
+lots verts utilisés ;
+collectes ;
+récoltes ;
+parcelles ;
+producteurs ;
+poids à chaque étape ;
+rendements ;
+non-conformités liées ;
+documents associés.
+Fonctionnalités
+génération PDF complète ;
+impression ;
+export Excel.
+17.13 Rapport Mass Balance
+Objectif
+Comparer les quantités entrantes et sortantes afin de vérifier la cohérence des volumes.
+Informations à afficher
+poids total vanille verte ;
+poids total transformé ;
+poids total par qualité ;
+poids vendu/exporté ;
+pertes ;
+rendements ;
+écarts éventuels.
+Fonctionnalités
+calcul automatique ;
+alertes incohérences ;
+export PDF ;
+export Excel.
+17.14 Rapport Inspection interne
+Informations à afficher
+producteur ;
+parcelle ;
+auditeur ;
+date ;
+checklist ;
+résultat ;
+observations ;
+photos ;
+signatures ;
+non-conformités détectées.
+Fonctionnalités
+PDF ;
+archivage ;
+impression.
+17.15 Fiche Non-conformité
+Informations à afficher
+numéro NC ;
+date ;
+gravité ;
+description ;
+producteur/parcelle/lot concerné ;
+action corrective ;
+responsable ;
+date limite ;
+statut ;
+sanction ;
+preuves jointes.
+Fonctionnalités
+PDF ;
+suivi historique ;
+archivage.
+17.16 Exports Excel / CSV
+La plateforme doit permettre l’export des données principales.
+Exports minimum à prévoir :
+producteurs ;
+parcelles ;
+récoltes ;
+collectes ;
+lots verts ;
+transformations ;
+lots préparés ;
+stock ;
+ventes/exports ;
+inspections ;
+non-conformités ;
+rapports mass balance.
+Fonctionnalités attendues
+filtres avant export ;
+export par date ;
+export par village ;
+export par qualité ;
+export par statut ;
+export par producteur.
+17.17 Historique et archivage
+Tous les documents générés doivent être :
+conservés dans la plateforme ;
+associés aux objets métier concernés ;
+accessibles aux utilisateurs autorisés ;
+historisés ;
+téléchargeables.
+Le système doit conserver :
+date de génération ;
+utilisateur ayant généré le document ;
+version du document si modification.
+18. Règles métier automatiques, contrôles et alertes
+Cette section décrit les règles que le système doit appliquer automatiquement pour sécuriser le SCI, éviter les erreurs de saisie, maintenir la traçabilité et signaler les incohérences.
+18.1 Règles générales de sécurité des données
+Le système doit conserver un historique des actions importantes.
+Actions à historiser :
+création d’un producteur ;
+modification d’un producteur ;
+suspension ou exclusion d’un producteur ;
+création ou modification d’une parcelle ;
+création d’une récolte ;
+création d’une collecte ;
+création ou modification d’un lot vert ;
+transformation d’un lot vert ;
+création d’un lot préparé ;
+mouvement de stock ;
+vente/export ;
+création ou clôture d’une non-conformité ;
+génération d’un document important.
+Pour chaque action, le système doit conserver :
+date ;
+heure ;
+utilisateur ;
+action réalisée ;
+ancienne valeur si modification importante ;
+nouvelle valeur.
+18.2 Règles sur les producteurs
+Règles obligatoires :
+Chaque producteur doit avoir un code unique.
+Deux producteurs ne peuvent pas avoir le même code.
+Un producteur suspendu ne peut pas livrer de vanille bio.
+Un producteur exclu ne peut pas livrer de vanille bio.
+Un producteur non certifié ne doit pas pouvoir alimenter un lot bio sans validation spécifique.
+Le système doit signaler les producteurs sans contrat signé.
+Le système doit signaler les producteurs sans parcelle enregistrée.
+Alertes souhaitées :
+contrat manquant ;
+statut biologique manquant ;
+producteur sans inspection annuelle ;
+producteur avec non-conformité ouverte ;
+producteur suspendu tentant d’être utilisé dans une collecte.
+18.3 Règles sur les parcelles
+Règles obligatoires :
+Une parcelle doit toujours être liée à un producteur.
+Chaque parcelle doit avoir un code unique.
+Une parcelle non conforme ne peut pas générer une récolte bio.
+Une parcelle suspendue ou bloquée ne peut pas être utilisée pour créer un lot bio.
+Une parcelle doit conserver son historique de conformité.
+Alertes souhaitées :
+coordonnées GPS manquantes ;
+surface manquante ;
+historique des intrants manquant ;
+risque de contamination élevé ;
+parcelle sans inspection ;
+parcelle proche d’une zone à risque si les données GPS le permettent.
+18.4 Règles sur les récoltes de vanille verte
+Règles obligatoires :
+Une récolte doit toujours être liée à un producteur.
+Une récolte doit toujours être liée à une parcelle.
+Le poids récolté doit être supérieur à zéro.
+Une récolte ne peut pas être créée pour un producteur suspendu ou exclu.
+Une récolte ne peut pas être créée sur une parcelle non conforme.
+Une récolte utilisée dans une collecte doit conserver son lien avec la collecte.
+Alertes souhaitées :
+poids anormalement élevé par rapport à la surface ;
+récolte sans collecte associée après un délai défini ;
+récolte saisie sans information qualité ;
+récolte issue d’une parcelle à risque.
+18.5 Règles sur la collecte
+Règles obligatoires :
+Chaque collecte doit avoir un numéro de bordereau unique.
+Chaque collecte doit être liée à un producteur.
+Le poids net doit être supérieur à zéro.
+Le producteur doit être actif.
+Le producteur doit être conforme pour la filière bio.
+La collecte doit être liée à un lot vert ou pouvoir créer un lot vert.
+Une collecte validée ne doit pas pouvoir être supprimée sans autorisation spéciale.
+Alertes souhaitées :
+poids collecté supérieur au poids récolté déclaré ;
+collecte sans signature ;
+collecte sans parcelle ou récolte liée ;
+collecte non encore affectée à un lot vert ;
+collecteur non identifié.
+18.6 Règles sur les lots verts
+Règles obligatoires :
+Un lot vert doit avoir un code unique.
+Un lot vert doit contenir au moins une collecte.
+Le poids total du lot vert doit correspondre à la somme des collectes associées.
+Un lot vert bloqué ne peut pas être transformé.
+Un lot vert transformé ne peut pas être modifié sans justification.
+Un lot vert ne peut pas être utilisé deux fois dans deux transformations différentes sauf si une gestion partielle des quantités est prévue.
+Le système doit conserver l’historique des collectes composant le lot.
+Alertes souhaitées :
+écart entre poids du lot et somme des collectes ;
+lot vert sans destination ;
+lot vert en attente de transformation depuis trop longtemps ;
+lot vert contenant une collecte issue d’un producteur avec non-conformité ouverte ;
+lot vert bloqué.
+18.7 Règles sur la transformation / préparation
+Règles obligatoires :
+Une transformation doit toujours utiliser au moins un lot vert.
+Un lot vert bloqué ne peut pas être transformé.
+Le poids entrant doit être égal à la somme des poids des lots verts utilisés ou des quantités partielles utilisées.
+Le poids final préparé total ne peut pas être supérieur au poids entrant sauf justification exceptionnelle.
+La somme des poids par qualité doit être égale au poids final préparé total.
+Les qualités autorisées sont : Gourmet, Standard, TK, Fendue.
+Chaque qualité produite doit générer un lot préparé distinct ou une ligne de sortie distincte.
+La transformation doit calculer automatiquement les pertes et rendements.
+Une transformation clôturée ne doit pas pouvoir être modifiée sans autorisation spéciale.
+Alertes souhaitées :
+rendement global anormal ;
+rendement par qualité anormal ;
+poids final supérieur au poids entrant ;
+répartition qualité incomplète ;
+transformation commencée mais non clôturée ;
+lot vert déjà utilisé ;
+absence de responsable transformation.
+18.8 Règles sur les lots préparés
+Règles obligatoires :
+Un lot préparé doit avoir un code unique.
+Un lot préparé doit toujours être lié à une transformation.
+Un lot préparé doit toujours être lié à un ou plusieurs lots verts d’origine.
+Un lot préparé doit obligatoirement avoir une qualité : Gourmet, Standard, TK ou Fendue.
+Un lot préparé doit avoir un poids supérieur à zéro.
+Un lot préparé bloqué ne peut pas être vendu ou exporté.
+Un lot préparé doit entrer en stock avant toute vente/export.
+Tout changement de statut doit être historisé.
+Alertes souhaitées :
+lot préparé sans emplacement stock ;
+humidité manquante si cette donnée est obligatoire dans le fonctionnement réel ;
+lot préparé non entré en stock ;
+lot préparé bloqué ;
+incohérence entre poids du lot préparé et sortie de transformation.
+18.9 Règles sur le stock
+Règles obligatoires :
+Le stock disponible ne peut jamais être négatif.
+Une sortie de stock ne peut pas dépasser la quantité disponible.
+Un lot bloqué ne peut pas sortir du stock pour vente/export.
+Toute correction de stock doit être justifiée.
+Chaque mouvement de stock doit être historisé.
+Chaque mouvement doit avoir une date, une quantité, un utilisateur et un type de mouvement.
+Types de mouvements minimum :
+entrée ;
+sortie ;
+transfert ;
+correction ;
+blocage ;
+déblocage.
+Alertes souhaitées :
+stock faible ;
+sortie supérieure au stock disponible ;
+lot sans emplacement ;
+correction de stock importante ;
+écart entre stock théorique et inventaire physique.
+18.10 Règles sur les ventes / exports
+Règles obligatoires :
+Une vente/export doit avoir un numéro unique.
+Une vente/export doit être liée à un ou plusieurs lots préparés.
+Les lots vendus doivent être disponibles en stock.
+Les lots vendus ne doivent pas être bloqués.
+La quantité vendue ne peut pas dépasser la quantité disponible.
+Une vente/export validée doit automatiquement créer une sortie de stock.
+La traçabilité des lots vendus doit rester consultable après la vente/export.
+Alertes souhaitées :
+document export manquant ;
+certificat manquant ;
+lot bloqué sélectionné ;
+quantité supérieure au stock ;
+vente/export non clôturé ;
+destination manquante.
+18.11 Règles sur les inspections internes
+Règles obligatoires :
+Chaque producteur doit avoir au moins une inspection annuelle.
+Chaque inspection doit avoir un auditeur identifié.
+Chaque inspection doit avoir un résultat clair.
+Un auditeur ne doit pas inspecter sa propre exploitation.
+Une inspection avec non-conformité doit pouvoir générer automatiquement une fiche de non-conformité.
+Les rapports d’inspection doivent être archivés.
+Alertes souhaitées :
+producteur non inspecté ;
+inspection incomplète ;
+inspection sans signature ;
+inspection sans résultat ;
+non-conformité détectée mais non enregistrée.
+18.12 Règles sur les non-conformités
+Règles obligatoires :
+Chaque non-conformité doit avoir un numéro unique.
+Chaque non-conformité doit avoir un niveau de gravité.
+Une non-conformité majeure doit pouvoir bloquer un producteur, une parcelle ou un lot.
+Chaque non-conformité doit avoir un statut.
+Une non-conformité clôturée doit conserver son historique.
+Une action corrective doit avoir un responsable et une date limite si nécessaire.
+Statuts minimum :
+ouverte ;
+en cours ;
+clôturée ;
+rejetée ;
+en retard.
+Alertes souhaitées :
+action corrective en retard ;
+non-conformité majeure ouverte ;
+non-conformité sans responsable ;
+non-conformité sans décision ;
+lot concerné toujours en circulation malgré blocage.
+18.13 Règles sur la traçabilité
+Règles obligatoires :
+Le système doit permettre une traçabilité descendante.
+Le système doit permettre une traçabilité ascendante.
+Aucun lot préparé ne doit exister sans origine.
+Aucun lot vendu/exporté ne doit exister sans lot préparé.
+Les poids doivent être visibles à chaque étape.
+Les pertes de transformation doivent être calculées.
+Les documents associés doivent être accessibles depuis la vue traçabilité.
+Les non-conformités liées doivent être visibles.
+Alertes souhaitées :
+rupture de lien de traçabilité ;
+lot préparé sans lot vert ;
+vente/export sans lot préparé ;
+poids incohérents entre étapes ;
+documents manquants.
+18.14 Règles sur les documents
+Règles obligatoires :
+Les documents générés doivent être archivés.
+Chaque document doit être lié à un objet métier si applicable.
+Chaque document doit conserver sa date de génération.
+Chaque document doit conserver l’utilisateur qui l’a généré.
+Un document important remplacé doit conserver l’ancienne version si possible.
+Alertes souhaitées :
+contrat producteur manquant ;
+rapport inspection manquant ;
+bordereau collecte manquant ;
+fiche transformation manquante ;
+document export manquant ;
+certificat manquant.
+18.15 Alertes du tableau de bord
+Le tableau de bord doit afficher les alertes principales.
+Alertes prioritaires :
+producteurs non inspectés ;
+non-conformités ouvertes ;
+non-conformités en retard ;
+lots bloqués ;
+lots verts en attente de transformation ;
+transformations non clôturées ;
+lots préparés sans emplacement stock ;
+stock faible ;
+ventes/exports avec documents manquants ;
+incohérences de poids ;
+ruptures de traçabilité.
+18.16 Niveaux d’alerte
+Le système peut classer les alertes selon trois niveaux :
+Information
+Exemples :
+document optionnel manquant ;
+récolte sans photo ;
+lot en attente.
+Attention
+Exemples :
+inspection manquante ;
+rendement inhabituel ;
+GPS manquant ;
+action corrective bientôt en retard.
+Critique
+Exemples :
+lot bloqué sélectionné pour vente ;
+producteur exclu utilisé dans une collecte ;
+rupture de traçabilité ;
+stock négatif ;
+non-conformité majeure ouverte.
+18.17 Principe général de validation
+Le système doit empêcher les actions critiques lorsque les conditions minimales ne sont pas respectées.
+Exemples :
+empêcher la vente d’un lot bloqué ;
+empêcher la transformation d’un lot vert bloqué ;
+empêcher la création d’un lot préparé sans origine ;
+empêcher une sortie de stock supérieure au stock disponible.
+Pour les cas moins critiques, le système peut afficher une alerte mais laisser continuer avec justification.
+Exemples :
+rendement inhabituel ;
+document manquant ;
+GPS manquant ;
+poids final exceptionnel.
+Dans ce cas, l’utilisateur doit saisir une justification, qui sera historisée.
+19. Gestion des rôles, permissions et sécurité utilisateur
+Cette section décrit les rôles utilisateurs de la plateforme et les permissions associées.
+Le système doit être basé sur une gestion des accès sécurisée.
+Chaque utilisateur doit uniquement accéder aux modules et actions autorisés selon son rôle.
+19.1 Principes généraux de sécurité
+Le système doit respecter les principes suivants :
+Chaque utilisateur doit avoir un compte individuel.
+Les mots de passe doivent être sécurisés.
+Les accès doivent dépendre du rôle utilisateur.
+Les actions importantes doivent être historisées.
+Les utilisateurs inactifs peuvent être désactivés.
+Les suppressions critiques doivent être limitées.
+Les connexions et modifications importantes doivent être traçables.
+Le système doit enregistrer :
+date de connexion ;
+utilisateur ;
+adresse IP si possible ;
+actions importantes réalisées.
+19.2 Liste des rôles utilisateurs
+Rôles minimum à prévoir :
+Administrateur
+Coordinateur SCI
+Auditeur interne
+Responsable collecte
+Responsable transformation
+Responsable stock
+Auditeur externe / lecture seule
+Des rôles supplémentaires pourront être ajoutés plus tard si nécessaire.
+19.3 Rôle Administrateur
+Description
+L’administrateur possède les droits les plus élevés.
+Accès autorisés
+accès complet à tous les modules ;
+création/modification/suppression utilisateurs ;
+gestion des rôles ;
+accès aux paramètres système ;
+accès à tous les rapports ;
+accès à tous les documents ;
+export complet des données ;
+gestion des sauvegardes si applicable.
+Actions sensibles autorisées
+suppression exceptionnelle ;
+déblocage de lots ;
+modification d’informations critiques ;
+correction manuelle ;
+réinitialisation mot de passe.
+Restrictions recommandées
+Même l’administrateur devrait conserver un historique de toutes les modifications importantes.
+19.4 Rôle Coordinateur SCI
+Description
+Le coordinateur SCI pilote les opérations du système de contrôle interne.
+Accès autorisés
+gestion producteurs ;
+gestion parcelles ;
+consultation récoltes ;
+consultation collectes ;
+gestion inspections ;
+gestion non-conformités ;
+consultation traçabilité ;
+consultation stock ;
+génération rapports ;
+accès documents ;
+validation de certaines opérations.
+Actions autorisées
+créer/modifier producteurs ;
+créer/modifier parcelles ;
+valider inspections ;
+créer non-conformités ;
+bloquer un lot ;
+suspendre un producteur ;
+générer rapports SCI.
+Restrictions
+ne peut pas gérer les utilisateurs système sauf autorisation spécifique ;
+ne peut pas supprimer les données critiques.
+19.5 Rôle Auditeur interne
+Description
+L’auditeur interne réalise les inspections et contrôles terrain.
+Accès autorisés
+consultation producteurs ;
+consultation parcelles ;
+création inspections ;
+modification inspections non validées ;
+création non-conformités ;
+ajout photos et documents ;
+consultation traçabilité limitée.
+Actions autorisées
+remplir checklist ;
+signer inspection ;
+générer rapport inspection ;
+ajouter observations.
+Restrictions
+ne peut pas modifier les lots ;
+ne peut pas modifier le stock ;
+ne peut pas vendre/exporter ;
+ne peut pas gérer les utilisateurs.
+19.6 Rôle Responsable collecte
+Description
+Le responsable collecte enregistre les apports de vanille verte.
+Accès autorisés
+consultation producteurs ;
+consultation parcelles ;
+création récoltes ;
+création collectes ;
+création lots verts ;
+impression bordereaux ;
+consultation historique collecte.
+Actions autorisées
+enregistrer poids ;
+créer bordereau ;
+associer collecte à lot vert ;
+modifier collecte avant validation.
+Restrictions
+ne peut pas modifier transformation ;
+ne peut pas modifier stock ;
+ne peut pas vendre/exporter ;
+ne peut pas gérer utilisateurs.
+19.7 Rôle Responsable transformation
+Description
+Le responsable transformation suit la préparation de la vanille.
+Accès autorisés
+consultation lots verts ;
+création transformations ;
+gestion des étapes de préparation ;
+création lots préparés ;
+suivi rendements ;
+consultation traçabilité liée.
+Actions autorisées
+sélectionner lots verts ;
+enregistrer poids entrée/sortie ;
+répartir les qualités ;
+clôturer transformation ;
+générer rapports transformation.
+Restrictions
+ne peut pas modifier utilisateurs ;
+ne peut pas vendre/exporter ;
+ne peut pas modifier non-conformités critiques sans autorisation.
+19.8 Rôle Responsable stock
+Description
+Le responsable stock gère les entrées, sorties et inventaires.
+Accès autorisés
+consultation lots préparés ;
+gestion mouvements stock ;
+gestion emplacements ;
+inventaires ;
+consultation ventes/exports.
+Actions autorisées
+entrée stock ;
+sortie stock ;
+transfert emplacement ;
+correction stock avec justification ;
+génération rapports stock.
+Restrictions
+ne peut pas modifier transformations ;
+ne peut pas modifier producteurs ;
+ne peut pas gérer utilisateurs.
+19.9 Rôle Auditeur externe / lecture seule
+Description
+Profil destiné aux audits externes ou à certains partenaires.
+Accès autorisés
+consultation producteurs ;
+consultation parcelles ;
+consultation inspections ;
+consultation traçabilité ;
+consultation documents ;
+consultation stock ;
+consultation ventes/exports.
+Restrictions
+aucun droit de modification ;
+aucun droit suppression ;
+aucun droit validation ;
+aucun droit création.
+19.10 Gestion des permissions détaillées
+Le système doit permettre de gérer les permissions par module.
+Exemples de permissions :
+voir ;
+créer ;
+modifier ;
+supprimer ;
+valider ;
+exporter ;
+imprimer ;
+bloquer ;
+débloquer.
+Le développeur pourra utiliser :
+permissions par rôle ;
+permissions spécifiques utilisateur si nécessaire.
+19.11 Gestion des validations
+Certaines opérations critiques doivent nécessiter une validation.
+Exemples :
+blocage d’un lot ;
+clôture d’une non-conformité majeure ;
+correction importante de stock ;
+suppression de données ;
+modification après validation ;
+déblocage d’un lot.
+Le système doit conserver :
+utilisateur ayant validé ;
+date ;
+justification.
+19.12 Gestion des suppressions
+Le système doit limiter les suppressions définitives.
+Recommandation :
+utiliser une logique d’archivage plutôt que suppression réelle.
+Exemples :
+producteur archivé ;
+lot désactivé ;
+document obsolète ;
+inspection annulée.
+Les suppressions critiques doivent :
+être réservées aux administrateurs ;
+être historisées ;
+nécessiter confirmation.
+19.13 Gestion des mots de passe
+Fonctions minimum :
+mot de passe sécurisé ;
+changement mot de passe ;
+mot de passe oublié ;
+réinitialisation administrateur ;
+expiration éventuelle si nécessaire.
+19.14 Sessions et connexions
+Le système doit prévoir :
+déconnexion automatique après inactivité ;
+fermeture de session ;
+journal des connexions ;
+gestion multi-utilisateurs.
+19.15 Journal d’activité
+Le système doit conserver un journal des actions importantes.
+Informations minimum :
+utilisateur ;
+action ;
+date ;
+module concerné ;
+ancienne valeur ;
+nouvelle valeur.
+Exemples :
+modification poids lot ;
+changement statut ;
+correction stock ;
+suppression ;
+blocage lot ;
+clôture NC.
+19.16 Sécurité documentaire
+Les documents sensibles doivent être protégés.
+Le système doit permettre :
+contrôle accès documents ;
+téléchargement limité selon rôle ;
+historique des versions ;
+archivage sécurisé.
+19.17 Principe général de sécurité
+Le système doit privilégier :
+la traçabilité des actions ;
+la limitation des suppressions ;
+le contrôle des accès ;
+la cohérence des données ;
+la conservation des historiques.
+L’objectif est de garantir un SCI fiable, auditable et sécurisé.
+20. Exigences techniques et architecture recommandée
+Cette section décrit les attentes techniques de la plateforme. Elle doit servir de base de discussion avec le développeur ou l’agence informatique.
+L’objectif est de créer un outil fiable, sécurisé, évolutif et utilisable sur le terrain.
+20.1 Type de solution attendue
+La solution souhaitée est une application web de type extranet.
+Elle doit être accessible depuis :
+ordinateur ;
+tablette ;
+smartphone ;
+navigateur web moderne.
+La solution doit être responsive, c’est-à-dire adaptée automatiquement aux différentes tailles d’écran.
+20.2 Application web ou mobile
+Pour la première version, il est recommandé de développer une application web responsive.
+Avantages :
+accès simple depuis navigateur ;
+pas besoin d’installation sur téléphone ;
+maintenance plus simple ;
+mise à jour centralisée ;
+coût de développement plus maîtrisé.
+Une application mobile native pourra être envisagée plus tard si nécessaire.
+20.3 Progressive Web App – option recommandée
+Il serait pertinent de prévoir une application web progressive appelée PWA.
+Une PWA permet :
+une utilisation proche d’une application mobile ;
+un raccourci sur l’écran d’accueil du téléphone ;
+une meilleure expérience mobile ;
+une possible gestion du mode hors ligne dans une version avancée.
+Cette option est fortement recommandée pour les utilisateurs terrain.
+20.4 Mode hors ligne
+Le mode hors ligne est un besoin important mais peut être développé en version avancée.
+Objectif : permettre aux agents terrain de saisir certaines données même sans connexion internet.
+Données concernées en priorité :
+inspections internes ;
+photos terrain ;
+coordonnées GPS ;
+récoltes ;
+collectes.
+Fonctionnement attendu :
+L’utilisateur saisit les informations hors ligne.
+Les données sont stockées temporairement sur l’appareil.
+Dès que la connexion revient, les données sont synchronisées.
+Le système signale les erreurs éventuelles de synchronisation.
+Priorité :
+V1 : fonctionnement en ligne ;
+V2 ou V3 : mode hors ligne et synchronisation.
+20.5 Architecture recommandée
+Architecture possible :
+Frontend : React, Next.js ou équivalent ;
+Backend : API sécurisée ;
+Base de données : PostgreSQL ;
+Authentification : système sécurisé avec rôles ;
+Stockage fichiers : stockage cloud sécurisé ;
+Hébergement : serveur cloud ou plateforme managée.
+Une solution basée sur Supabase peut être envisagée pour :
+base de données PostgreSQL ;
+authentification ;
+stockage fichiers ;
+sécurité par rôles ;
+API automatique.
+Le choix final devra être validé par le développeur selon le budget, les compétences et les besoins de maintenance.
+20.6 Base de données
+La base de données doit être relationnelle afin de garantir les liens entre :
+producteurs ;
+parcelles ;
+récoltes ;
+collectes ;
+lots verts ;
+transformations ;
+lots préparés ;
+stock ;
+ventes/exports ;
+inspections ;
+non-conformités ;
+documents.
+La base doit permettre :
+intégrité des données ;
+relations fiables ;
+requêtes de traçabilité ;
+rapports mass balance ;
+exports filtrés.
+20.7 Hébergement
+La plateforme devra être hébergée sur une infrastructure fiable.
+Options possibles :
+serveur cloud ;
+hébergement managé ;
+Supabase + Vercel ;
+autre solution proposée par le développeur.
+Exigences minimales :
+accès sécurisé HTTPS ;
+sauvegardes régulières ;
+disponibilité correcte ;
+possibilité de restauration ;
+évolutivité.
+20.8 Sécurité
+La sécurité est essentielle car la plateforme contient des données sensibles.
+Exigences minimales :
+connexion sécurisée ;
+mots de passe protégés ;
+accès par rôle ;
+sauvegardes ;
+journal d’activité ;
+limitation des suppressions ;
+protection des documents ;
+droits différents selon les utilisateurs.
+Les données sensibles ne doivent pas être accessibles publiquement.
+20.9 Sauvegardes
+Le système doit prévoir des sauvegardes régulières.
+Sauvegardes attendues :
+sauvegarde de la base de données ;
+sauvegarde des documents ;
+sauvegarde des photos ;
+sauvegarde des rapports générés.
+Fréquence recommandée :
+sauvegarde quotidienne automatique ;
+conservation de plusieurs versions ;
+procédure de restauration documentée.
+20.10 Gestion des fichiers
+La plateforme doit stocker différents types de fichiers :
+photos producteurs ;
+photos parcelles ;
+photos inspections ;
+contrats ;
+bordereaux ;
+rapports PDF ;
+certificats ;
+documents export ;
+pièces justificatives.
+Exigences :
+classement par module ;
+lien avec l’objet métier concerné ;
+téléchargement sécurisé ;
+historique si remplacement ;
+limitation des formats autorisés si nécessaire.
+Formats acceptés recommandés :
+PDF ;
+JPG ;
+PNG ;
+XLSX ;
+CSV.
+20.11 GPS et cartographie
+La plateforme doit prévoir la gestion des coordonnées GPS.
+Fonctions attendues :
+saisie GPS d’une parcelle ;
+affichage sur carte ;
+recherche par village ;
+filtrage par zone ;
+export des parcelles ;
+affichage des producteurs/parcelles sur une carte.
+Fonctions avancées possibles :
+recherche dans un rayon autour d’un point GPS ;
+regroupement des parcelles par zone ;
+détection des parcelles proches ;
+identification des zones à risque ;
+organisation des tournées d’inspection.
+Priorité :
+V1 : coordonnées GPS et affichage simple ;
+V2/V3 : carte avancée et recherche géographique.
+20.12 QR codes et codes-barres
+Les QR codes peuvent être ajoutés pour améliorer l’identification des lots.
+Usages possibles :
+étiquette lot vert ;
+étiquette lot préparé ;
+fiche producteur ;
+fiche parcelle ;
+rapport de traçabilité.
+Fonctionnement souhaité :
+scanner un QR code pour ouvrir la fiche du lot ;
+scanner un QR code pour voir la traçabilité ;
+imprimer des étiquettes avec QR code.
+Priorité :
+V1 : codes uniques lisibles ;
+V2/V3 : QR codes.
+20.13 Performance
+La plateforme doit rester rapide même avec plusieurs années de données.
+Le système doit pouvoir gérer :
+plusieurs centaines de producteurs ;
+plusieurs milliers de récoltes ;
+plusieurs milliers de collectes ;
+plusieurs années de lots ;
+de nombreux documents et photos.
+Le développeur doit prévoir :
+une base de données bien structurée ;
+des filtres efficaces ;
+une pagination dans les listes ;
+une recherche rapide ;
+des exports optimisés.
+20.14 Interface utilisateur
+L’interface doit être simple et adaptée à des utilisateurs terrain.
+Principes recommandés :
+menus clairs ;
+boutons visibles ;
+formulaires simples ;
+peu de texte inutile ;
+messages d’erreur compréhensibles ;
+navigation logique selon le workflow métier ;
+affichage mobile lisible.
+L’application doit éviter les écrans trop complexes.
+20.15 Multilingue
+La plateforme peut être prévue en français dans un premier temps.
+Une version multilingue pourra être envisagée plus tard.
+Langues possibles :
+français ;
+comorien ;
+anglais.
+Priorité :
+V1 : français ;
+V2/V3 : traduction possible.
+20.16 Notifications
+Le système peut prévoir des notifications internes.
+Types de notifications :
+inspection à réaliser ;
+non-conformité en retard ;
+lot bloqué ;
+document manquant ;
+stock faible ;
+transformation non clôturée ;
+vente/export incomplète.
+Canaux possibles :
+notification dans l’application ;
+email ;
+SMS ou WhatsApp en version avancée.
+Priorité :
+V1 : alertes dans le tableau de bord ;
+V2/V3 : notifications email/SMS/WhatsApp.
+20.17 Exports et interopérabilité
+Le système doit permettre d’exporter les données.
+Formats :
+PDF ;
+Excel ;
+CSV.
+Objectifs :
+audit ;
+analyse ;
+sauvegarde ;
+communication avec partenaires ;
+transmission à certificateur si nécessaire.
+Le développeur devra éviter que les données soient enfermées dans un système impossible à exporter.
+20.18 Maintenance
+Le développeur devra prévoir une maintenance après livraison.
+Éléments à définir :
+correction des bugs ;
+mises à jour sécurité ;
+sauvegardes ;
+assistance utilisateur ;
+évolutions fonctionnelles ;
+documentation technique.
+Il est recommandé de demander une période de garantie après livraison.
+20.19 Documentation technique attendue
+Le prestataire devra fournir :
+documentation d’installation ;
+documentation d’utilisation administrateur ;
+documentation des rôles ;
+schéma de base de données ;
+procédure de sauvegarde ;
+procédure de restauration ;
+accès au code source si développement spécifique ;
+identifiants d’administration.
+20.20 Livrables techniques attendus
+Les livrables minimum sont :
+application fonctionnelle ;
+base de données ;
+interface administrateur ;
+gestion utilisateurs ;
+génération documents ;
+hébergement configuré ;
+sauvegardes configurées ;
+documentation ;
+formation de prise en main ;
+code source si convenu.
+20.21 Recommandation de phasage technique
+Phase 1 – Socle web
+application web responsive ;
+authentification ;
+rôles ;
+base de données ;
+producteurs ;
+parcelles ;
+récoltes ;
+collectes ;
+lots verts ;
+transformations ;
+lots préparés ;
+stock simple ;
+traçabilité.
+Phase 2 – SCI complet
+inspections ;
+non-conformités ;
+documents PDF ;
+exports ;
+alertes ;
+rapports mass balance.
+Phase 3 – Terrain avancé
+mode hors ligne ;
+QR codes ;
+cartographie avancée ;
+notifications ;
+signatures électroniques ;
+tableaux de bord avancés.
+20.22 Points à faire chiffrer séparément
+Pour mieux maîtriser le budget, certains éléments peuvent être chiffrés séparément :
+mode hors ligne ;
+application mobile native ;
+QR codes ;
+cartographie avancée ;
+notifications SMS/WhatsApp ;
+signature électronique ;
+tableaux de bord avancés ;
+intégration comptable ;
+hébergement et maintenance annuelle.
+Cela permettra de distinguer le cœur obligatoire du SCI des options avancées.
+21. Structuration finale du projet pour le prestataire informatique
+Cette section décrit comment le projet devra être présenté à un développeur, une agence ou un prestataire informatique.
+L’objectif est de permettre :
+une bonne compréhension du besoin ;
+une estimation correcte du budget ;
+une estimation correcte du délai ;
+une proposition technique cohérente ;
+une réduction des erreurs de développement.
+21.1 Objectif global du projet
+Le projet consiste à développer une plateforme numérique de gestion SCI dédiée à la filière vanille biologique.
+La plateforme doit permettre :
+la gestion des producteurs ;
+la gestion des parcelles ;
+la gestion des récoltes de vanille verte ;
+la gestion des collectes ;
+la gestion des lots verts ;
+la gestion de la transformation ;
+la gestion des qualités de vanille préparée ;
+la gestion du stock ;
+la gestion des ventes/exports ;
+la traçabilité complète ;
+les inspections internes ;
+les non-conformités ;
+la génération de documents SCI ;
+la préparation des audits biologiques.
+21.2 Résumé fonctionnel à transmettre au prestataire
+Le système doit permettre de tracer la vanille depuis :
+Producteur → Parcelle → Récolte → Collecte → Lot vert → Transformation → Répartition qualité → Lot préparé → Stock → Vente / Export
+La transformation doit permettre de produire plusieurs qualités :
+Gourmet ;
+Standard ;
+TK ;
+Fendue.
+Chaque qualité doit rester traçable séparément.
+Le système doit également gérer :
+inspections ;
+non-conformités ;
+documents ;
+alertes ;
+rapports ;
+mass balance ;
+historique des actions.
+21.3 Fonctionnalités prioritaires – Version 1
+Le prestataire devra chiffrer une V1 contenant au minimum :
+Gestion SCI de base
+utilisateurs ;
+rôles ;
+producteurs ;
+parcelles ;
+récoltes ;
+collectes ;
+lots verts ;
+transformation ;
+lots préparés ;
+gestion des qualités ;
+stock ;
+ventes/exports ;
+traçabilité.
+Documents minimum
+bordereau collecte ;
+fiche lot vert ;
+fiche transformation ;
+fiche lot préparé ;
+rapport traçabilité.
+Contrôles minimum
+cohérence des poids ;
+blocage lots ;
+gestion statuts ;
+historique des actions.
+21.4 Fonctionnalités avancées – Versions futures
+Ces fonctionnalités peuvent être chiffrées séparément.
+Version 2
+inspections ;
+non-conformités ;
+rapports avancés ;
+mass balance ;
+exports avancés ;
+tableau de bord avancé.
+Version 3
+mode hors ligne ;
+application mobile native ;
+QR codes ;
+cartographie avancée ;
+notifications WhatsApp/SMS ;
+signatures électroniques ;
+statistiques avancées.
+21.5 Questions à poser au prestataire
+Le porteur du projet devra demander au prestataire :
+Quelle architecture technique est recommandée ?
+Quel framework sera utilisé ?
+Quelle base de données sera utilisée ?
+Comment seront gérées les sauvegardes ?
+Comment seront sécurisées les données ?
+Qui possède le code source ?
+Comment seront gérées les mises à jour ?
+Comment sera gérée la maintenance ?
+Le système sera-t-il évolutif ?
+Comment sera géré le mode hors ligne plus tard ?
+Quel sera le coût de l’hébergement ?
+Quel sera le délai de développement ?
+Quels éléments sont inclus ou exclus du devis ?
+21.6 Éléments à demander dans le devis
+Le devis devra détailler :
+développement ;
+design interface ;
+base de données ;
+génération PDF ;
+hébergement ;
+sécurité ;
+sauvegardes ;
+maintenance ;
+support ;
+formation ;
+documentation ;
+évolutions possibles.
+Le devis devra préciser :
+coût initial ;
+coût maintenance ;
+coût hébergement ;
+coût évolutions futures.
+21.7 Livrables obligatoires
+Le prestataire devra fournir :
+application fonctionnelle ;
+accès administrateur ;
+base de données ;
+documentation ;
+procédures sauvegarde ;
+code source si convenu ;
+guide utilisateur ;
+formation de prise en main.
+21.8 Recommandation de méthode de développement
+Le projet devrait idéalement être développé par étapes.
+Méthode recommandée :
+Validation du cahier des charges.
+Validation des maquettes.
+Développement du socle.
+Développement des modules.
+Tests.
+Corrections.
+Formation.
+Mise en production.
+Suivi post-livraison.
+21.9 Importance des tests
+Avant la mise en production, le prestataire devra tester :
+les workflows ;
+la traçabilité ;
+les calculs de rendement ;
+les stocks ;
+les blocages ;
+les alertes ;
+les permissions utilisateurs ;
+les exports ;
+les PDF.
+Des données de test réalistes devront être utilisées.
+21.10 Formation des utilisateurs
+Une formation devra être prévue pour :
+coordinateur SCI ;
+collecteurs ;
+responsables transformation ;
+responsables stock ;
+auditeurs internes ;
+administrateurs.
+La formation devra couvrir :
+connexion ;
+utilisation des modules ;
+workflows ;
+gestion des erreurs ;
+exports ;
+rapports ;
+traçabilité.
+21.11 Maintenance et évolutions
+Le projet devra être pensé comme une plateforme évolutive.
+Des évolutions futures devront rester possibles :
+nouvelles qualités ;
+nouvelles règles SCI ;
+nouveaux rapports ;
+nouvelles langues ;
+application mobile ;
+intégrations externes.
+Le développeur devra éviter de bloquer l’évolution future du système.
+Table des matières
+Introduction et contexte du projet
+Objectifs du système SCI
+Présentation générale du fonctionnement métier
+Gestion des producteurs
+Gestion des parcelles
+Gestion des récoltes, collectes et lots
+Gestion de la transformation de la vanille
+Gestion des qualités de vanille préparée
+Gestion des lots préparés
+Gestion du stock
+Gestion des ventes et exports
+Gestion de la traçabilité
+Gestion des inspections et non-conformités
+Gestion documentaire
+Workflows métier détaillés
+Structure de la base de données
+Écrans et maquettes fonctionnelles
+Documents PDF et exports
+Règles métier, alertes et contrôles
+Gestion des rôles et permissions
+Architecture technique et exigences techniques
+Wireframes et maquettes visuelles
+MVP, périmètre de développement et priorités
+Conclusion générale
+Présentation du document
+Objet du document
+Le présent document constitue le cahier des charges fonctionnel et technique d’une plateforme SCI destinée à la gestion de la filière vanille biologique.
+Ce document a pour objectif de permettre à un développeur, une agence ou un prestataire informatique de :
+comprendre les besoins métier ;
+comprendre les exigences de traçabilité ;
+proposer une architecture technique adaptée ;
+estimer les coûts et délais ;
+développer la solution.
+Objectif principal du projet
+La plateforme devra permettre :
+la gestion des producteurs ;
+la gestion des parcelles ;
+la gestion des récoltes de vanille verte ;
+la gestion des collectes ;
+la gestion des lots verts ;
+la gestion de la transformation ;
+la gestion des qualités de vanille préparée ;
+la gestion des stocks ;
+la gestion des ventes/export ;
+la traçabilité complète ;
+la préparation des audits SCI et biologiques.
+Résumé fonctionnel rapide
+Le système doit assurer une traçabilité complète :
+Producteur → Parcelle → Récolte → Collecte → Lot vert → Transformation → Qualité → Lot préparé → Stock → Vente / Export
+Le système doit également gérer :
+les rendements ;
+les pertes ;
+les contrôles SCI ;
+les inspections ;
+les non-conformités ;
+les rapports ;
+les documents PDF.
+Public visé
+Ce document est destiné :
+aux développeurs ;
+aux agences ;
+aux prestataires informatiques ;
+aux chefs de projet ;
+aux responsables SCI ;
+aux futurs utilisateurs du système.
+Résultat attendu
+Le projet doit aboutir à une plateforme moderne, fiable, sécurisée et évolutive permettant d’améliorer la gestion du SCI et de faciliter les audits biologiques.
+21.12 Conclusion générale
+Le présent cahier des charges décrit les besoins fonctionnels, techniques et métier d’une plateforme SCI spécialisée dans la gestion de la filière vanille biologique.
+Le système attendu doit permettre :
+une traçabilité complète ;
+une gestion fiable des producteurs et parcelles ;
+le suivi des récoltes et collectes ;
+le suivi de la transformation ;
+la gestion des qualités de vanille préparée ;
+le suivi des stocks ;
+le suivi des ventes/export ;
+la gestion des inspections et non-conformités ;
+la préparation des audits ;
+la génération des rapports et documents SCI.
+L’objectif final est de disposer d’un outil moderne, fiable, sécurisé et évolutif permettant d’améliorer la gestion du SCI et de faciliter les audits biologiques.
+22. Maquettes visuelles fonctionnelles (Wireframes)
+Cette section décrit les maquettes fonctionnelles principales de la plateforme.
+Les wireframes ont pour objectif de montrer :
+l’organisation des écrans ;
+la navigation ;
+les informations visibles ;
+les boutons d’action ;
+les workflows utilisateur.
+Ces maquettes servent de base avant le design graphique final.
+22.1 Structure générale de l’interface
+L’application doit être organisée autour :
+d’un menu latéral gauche ;
+d’une barre supérieure ;
+d’une zone centrale de travail ;
+d’un système de notifications.
+Menu latéral principal
+Le menu doit contenir :
+Tableau de bord ;
+Producteurs ;
+Parcelles ;
+Récoltes ;
+Collectes ;
+Lots verts ;
+Transformation ;
+Lots préparés ;
+Stock ;
+Vente / Export ;
+Traçabilité ;
+Inspections ;
+Non-conformités ;
+Documents ;
+Paramètres.
+22.2 Wireframe – Tableau de bord
+Zones à afficher
+Bandeau supérieur
+logo ;
+nom utilisateur ;
+notifications ;
+bouton déconnexion.
+Cartes statistiques
+Afficher sous forme de cartes :
+producteurs actifs ;
+parcelles ;
+poids vanille verte collectée ;
+lots verts ;
+lots préparés ;
+stock disponible ;
+inspections en attente ;
+non-conformités ouvertes.
+Zone alertes
+Afficher :
+lots bloqués ;
+inspections manquantes ;
+stock faible ;
+rendements anormaux ;
+non-conformités critiques.
+Actions rapides
+Boutons :
+Nouveau producteur ;
+Nouvelle collecte ;
+Nouvelle transformation ;
+Nouvelle inspection ;
+Voir traçabilité.
+22.3 Wireframe – Liste Producteurs
+Éléments visuels
+Haut de page
+bouton “Ajouter producteur” ;
+recherche ;
+filtres.
+Tableau principal
+Colonnes :
+code ;
+nom ;
+village ;
+statut ;
+parcelles ;
+dernière inspection ;
+actions.
+Actions ligne
+voir ;
+modifier ;
+archiver ;
+exporter PDF.
+22.4 Wireframe – Fiche Producteur
+Structure écran
+Bloc informations générales
+nom ;
+téléphone ;
+village ;
+statut ;
+date entrée.
+Onglets
+Parcelles ;
+Récoltes ;
+Collectes ;
+Inspections ;
+Non-conformités ;
+Documents ;
+Historique.
+Bloc actions
+Modifier ;
+Ajouter parcelle ;
+Nouvelle inspection ;
+Télécharger PDF.
+22.5 Wireframe – Carte Parcelles
+Objectif
+Visualiser les parcelles sur une carte.
+Éléments visuels
+carte interactive ;
+points GPS ;
+filtres par village ;
+filtres par conformité ;
+filtres par producteur.
+Fonctions attendues
+cliquer sur une parcelle ;
+voir fiche parcelle ;
+afficher les parcelles proches ;
+afficher les zones à risque.
+22.6 Wireframe – Collecte vanille verte
+Structure écran
+Partie gauche
+sélection producteur ;
+sélection parcelle ;
+sélection récolte.
+Partie centrale
+poids brut ;
+poids net ;
+qualité ;
+nombre sacs.
+Partie basse
+signature producteur ;
+signature collecteur ;
+observations.
+Boutons
+enregistrer ;
+imprimer bordereau ;
+créer lot vert.
+22.7 Wireframe – Gestion Lots verts
+Tableau lots verts
+Colonnes :
+code lot ;
+poids ;
+nombre collectes ;
+statut ;
+destination ;
+actions.
+Fiche lot vert
+Afficher :
+composition du lot ;
+producteurs liés ;
+parcelles liées ;
+historique ;
+documents.
+Boutons
+transformer ;
+bloquer ;
+générer rapport.
+22.8 Wireframe – Transformation / Préparation
+Objectif
+Visualiser clairement la transformation de la vanille verte vers les qualités finales.
+Partie haute
+numéro transformation ;
+date ;
+responsable ;
+lots verts sélectionnés.
+Partie centrale
+Poids entrants
+poids total vert ;
+détail par lot vert.
+Étapes préparation
+échaudage ;
+fermentation ;
+séchage ;
+affinage ;
+tri ;
+calibrage.
+Répartition qualité
+Tableau :
+Qualité
+Poids
+Gourmet
+Standard
+TK
+Fendue
+Calculs automatiques
+Afficher :
+pertes ;
+rendement global ;
+rendement par qualité.
+Partie basse
+Boutons :
+créer lots préparés ;
+enregistrer ;
+clôturer transformation ;
+générer rapport PDF.
+22.9 Wireframe – Lots préparés
+Tableau principal
+Colonnes :
+code lot ;
+qualité ;
+poids ;
+humidité ;
+emplacement ;
+statut ;
+actions.
+Couleurs recommandées
+Gourmet : couleur premium ;
+Standard : couleur neutre ;
+TK : couleur secondaire ;
+Fendue : couleur distincte.
+Fiche lot préparé
+Afficher :
+origine ;
+transformation ;
+producteurs ;
+parcelles ;
+stock ;
+mouvements ;
+ventes ;
+traçabilité complète.
+22.10 Wireframe – Stock
+Éléments principaux
+stock total ;
+stock par qualité ;
+stock par emplacement ;
+alertes stock faible.
+Tableau mouvements
+Colonnes :
+date ;
+lot ;
+qualité ;
+mouvement ;
+quantité ;
+utilisateur.
+Boutons
+entrée ;
+sortie ;
+transfert ;
+correction ;
+inventaire.
+22.11 Wireframe – Vente / Export
+Structure écran
+Informations générales
+numéro vente ;
+client ;
+destination ;
+date.
+Lots sélectionnés
+Tableau :
+lot ;
+qualité ;
+poids ;
+quantité vendue.
+Documents associés
+facture ;
+certificat ;
+documents export.
+Boutons
+valider ;
+générer PDF ;
+exporter ;
+imprimer.
+22.12 Wireframe – Traçabilité
+Objectif
+Visualiser toute la chaîne de traçabilité.
+Affichage recommandé
+Vue en arbre ou chronologique :
+Producteur ↓ Parcelle ↓ Récolte ↓ Collecte ↓ Lot vert ↓ Transformation ↓ Qualité ↓ Lot préparé ↓ Stock ↓ Vente/export
+Informations visibles
+poids ;
+dates ;
+responsables ;
+documents ;
+alertes ;
+non-conformités.
+Boutons
+exporter PDF ;
+imprimer ;
+voir détails.
+22.13 Wireframe – Inspections
+Structure écran
+Liste inspections
+Colonnes :
+producteur ;
+parcelle ;
+date ;
+auditeur ;
+résultat ;
+statut.
+Fiche inspection
+Afficher :
+checklist ;
+observations ;
+photos ;
+signature ;
+non-conformités.
+Boutons
+enregistrer ;
+générer rapport ;
+créer non-conformité.
+22.14 Wireframe – Non-conformités
+Tableau principal
+Colonnes :
+numéro NC ;
+gravité ;
+objet concerné ;
+responsable ;
+date limite ;
+statut.
+Couleurs recommandées
+mineure : jaune ;
+majeure : rouge.
+Actions
+voir détail ;
+ajouter preuve ;
+clôturer ;
+bloquer lot/parcelle/producteur.
+22.15 Wireframe – Documents
+Éléments visuels
+bibliothèque documentaire ;
+aperçu fichiers ;
+filtres ;
+upload ;
+téléchargement.
+Types de documents
+PDF ;
+photos ;
+Excel ;
+certificats ;
+rapports.
+22.16 Principes de design recommandés
+Le design doit être :
+simple ;
+professionnel ;
+lisible sur mobile ;
+rapide à utiliser ;
+orienté terrain.
+Recommandations UX
+gros boutons ;
+formulaires courts ;
+couleurs simples ;
+navigation claire ;
+peu de texte inutile ;
+alertes visibles.
+22.17 Recommandation de réalisation des maquettes
+Avant le développement final, il est recommandé de :
+créer les wireframes ;
+valider les workflows ;
+tester la navigation ;
+valider les écrans terrain ;
+ajuster les formulaires ;
+seulement ensuite lancer le développement.
+Outils possibles pour les maquettes :
+Figma ;
+Lovable ;
+Whimsical ;
+Excalidraw ;
+Adobe XD.
+23. MVP, périmètre de développement et priorités projet
+Cette section définit le périmètre du projet afin d’aider le prestataire informatique à :
+comprendre les priorités ;
+estimer correctement le budget ;
+estimer les délais ;
+organiser le développement ;
+distinguer les fonctionnalités obligatoires des fonctionnalités futures.
+L’objectif est d’éviter un projet trop complexe dès la première version.
+23.1 Objectif principal de la V1
+La première version de la plateforme doit avant tout permettre :
+une traçabilité complète de la vanille ;
+la gestion des producteurs et parcelles ;
+la gestion des récoltes et collectes ;
+la gestion des lots verts ;
+la gestion de la transformation ;
+la gestion des qualités de vanille préparée ;
+le suivi du stock ;
+le suivi des ventes/exports ;
+la préparation des audits SCI.
+La priorité absolue est la cohérence des données et la continuité de la traçabilité.
+23.2 Fonctionnalités obligatoires – MVP / Version 1
+Le MVP correspond au socle minimal fonctionnel nécessaire pour exploiter le SCI.
+Modules obligatoires V1
+Utilisateurs et sécurité
+connexion sécurisée ;
+gestion des rôles ;
+historique des actions.
+Producteurs
+création ;
+modification ;
+statut ;
+archivage ;
+recherche.
+Parcelles
+création ;
+GPS simple ;
+conformité ;
+recherche.
+Récoltes vanille verte
+enregistrement ;
+poids ;
+lien producteur/parcelle.
+Collectes
+bordereaux ;
+pesée ;
+association lot vert.
+Lots verts
+création ;
+composition ;
+statut ;
+historique.
+Transformation / Préparation
+sélection lots verts ;
+poids entrant ;
+pertes ;
+répartition qualité ;
+rendements.
+Gestion des qualités
+Le système doit obligatoirement gérer :
+Gourmet ;
+Standard ;
+TK ;
+Fendue.
+Lots préparés
+création automatique ;
+qualité ;
+poids ;
+traçabilité.
+Stock
+entrées ;
+sorties ;
+stock par qualité ;
+inventaire simple.
+Vente / Export
+création ;
+sélection lots ;
+sortie stock ;
+historique.
+Traçabilité
+Le système doit permettre :
+traçabilité ascendante ;
+traçabilité descendante ;
+historique complet ;
+rapport PDF.
+Documents minimum
+bordereau collecte ;
+fiche lot vert ;
+rapport transformation ;
+fiche lot préparé ;
+rapport traçabilité.
+23.3 Fonctionnalités importantes mais non bloquantes – Version 2
+Ces fonctionnalités sont importantes mais peuvent être développées après la V1.
+SCI avancé
+inspections internes ;
+non-conformités ;
+tableaux de bord avancés ;
+mass balance ;
+alertes avancées.
+Documents avancés
+exports avancés ;
+statistiques ;
+rapports analytiques.
+Expérience utilisateur
+amélioration interface ;
+notifications email ;
+filtres avancés ;
+recherche améliorée.
+23.4 Fonctionnalités avancées – Version 3
+Ces fonctionnalités sont considérées comme évolutions futures.
+Mobile et terrain
+mode hors ligne ;
+synchronisation ;
+application mobile native.
+Identification avancée
+QR codes ;
+scanner ;
+étiquettes intelligentes.
+Cartographie avancée
+carte interactive ;
+recherche par rayon GPS ;
+regroupement géographique ;
+zones à risque.
+Communication
+notifications WhatsApp ;
+SMS ;
+emails automatiques.
+Analyse avancée
+tableaux de bord analytiques ;
+statistiques qualité ;
+analyses rendement ;
+rapports décisionnels.
+23.5 Priorités métier du projet
+Le développeur devra comprendre que les priorités du projet sont :
+Priorité 1
+Traçabilité complète de la vanille.
+Le système doit pouvoir retrouver l’origine complète d’un lot préparé ou vendu.
+Priorité 2
+Cohérence des poids et rendements.
+Le système doit empêcher les incohérences importantes.
+Priorité 3
+Simplicité terrain.
+Les utilisateurs doivent pouvoir utiliser la plateforme facilement même avec un faible niveau informatique.
+Priorité 4
+Préparation des audits SCI et Ecocert.
+Le système doit permettre de produire rapidement les preuves et rapports nécessaires.
+Priorité 5
+Évolutivité.
+Le système doit pouvoir évoluer sans devoir être entièrement reconstruit.
+23.6 Contraintes du projet
+Le prestataire devra tenir compte des contraintes suivantes.
+Utilisation terrain
+La plateforme sera utilisée sur le terrain.
+Elle doit donc être :
+simple ;
+rapide ;
+lisible sur mobile ;
+robuste.
+Connexion internet variable
+Le système doit fonctionner correctement même avec une connexion moyenne.
+Le mode hors ligne pourra être développé plus tard.
+Utilisateurs non techniques
+L’interface doit rester simple.
+Le projet ne doit pas dépendre d’utilisateurs très techniques.
+Traçabilité obligatoire
+La traçabilité ne doit jamais être cassée.
+Toutes les relations doivent être conservées.
+23.7 Critères de réussite de la V1
+La V1 sera considérée comme réussie si les conditions suivantes sont remplies.
+Traçabilité
+un lot préparé peut être tracé jusqu’au producteur ;
+une vente/export peut être tracée jusqu’aux parcelles d’origine ;
+aucune rupture de traçabilité.
+Transformation
+les rendements sont calculés ;
+les qualités sont séparées ;
+les pertes sont calculées.
+Stock
+le stock est cohérent ;
+les mouvements sont historisés ;
+les sorties sont contrôlées.
+SCI
+les producteurs et parcelles sont gérés ;
+les données auditables sont disponibles ;
+les documents SCI peuvent être générés.
+Utilisation
+les utilisateurs terrain peuvent utiliser la plateforme ;
+les workflows sont simples ;
+les principales opérations sont rapides.
+23.8 Éléments pouvant être simplifiés pour accélérer la V1
+Pour limiter les coûts et accélérer le développement, certains éléments peuvent être simplifiés dans un premier temps.
+Exemples :
+GPS simple sans carte avancée ;
+documents PDF simples ;
+tableau de bord basique ;
+pas de mode hors ligne ;
+pas de QR code ;
+pas de notifications SMS ;
+pas d’application mobile native.
+Ces éléments pourront être améliorés plus tard.
+23.9 Recommandation de stratégie projet
+Il est fortement recommandé :
+de développer une V1 stable ;
+de tester sur le terrain ;
+d’ajuster les workflows réels ;
+ensuite seulement développer les fonctionnalités avancées.
+Cette approche permettra :
+de limiter les coûts ;
+d’éviter les erreurs ;
+d’obtenir rapidement un outil exploitable ;
+de faire évoluer le système progressivement.

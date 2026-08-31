@@ -1,0 +1,20 @@
+taches 
+
+
+lots vert            ****
+trasformation        ****
+
+
+stock actuels 
+ lots vert sont normalement transforme anvant de rentre en stock 
+lot_lie
+
+
+table magasin emplacements 
+table stock actuel
+mouvement stock 
+documments
+
+
+
+collecte montant max inferieur ou = au poid de la recolte , et deduit de la recolte 
