@@ -217,30 +217,5 @@ Puis ouvrir `http://localhost:5173` dans le navigateur.
 
 Dans chacun des deux terminaux, cliquer dedans puis appuyer sur `Ctrl + C`. Fermer les fenêtres ensuite si besoin.
 
----
-
-## 8. Questions fréquentes / problèmes courants
-
-**"`python` n'est pas reconnu en tant que commande interne ou externe"**
-→ Python n'est pas installé correctement, ou la case "Add Python to PATH" n'a pas été cochée à l'installation (voir 2.1). Réinstaller Python en cochant bien cette case.
-
-**"`npm` n'est pas reconnu en tant que commande interne ou externe"**
-→ Node.js n'est pas installé, ou le terminal a été ouvert avant l'installation. Fermer toutes les fenêtres de terminal et en rouvrir une nouvelle après avoir installé Node.js (voir 2.2).
-
-**Le terminal affiche une erreur du type "port already in use" (port déjà utilisé)**
-→ Une autre fenêtre fait déjà tourner l'application. Vérifier qu'il n'y a pas déjà un terminal backend ou frontend ouvert ailleurs, ou redémarrer l'ordinateur puis recommencer l'étape 4/5.
-
-**La page dans le navigateur reste blanche, ou affiche une erreur de type "Network Error" / "Failed to fetch"**
-→ Cela signifie généralement que le terminal du backend (celui avec `uvicorn`) n'est plus ouvert, ou affiche une erreur. Vérifier ce terminal, le relancer si besoin avec la commande de l'étape 4.6.
-
-**Je veux repartir avec des données vides et un jeu de démonstration neuf**
-1. Fermer le terminal du backend (`Ctrl + C`).
-2. Dans le dossier `backend`, supprimer le fichier `sci_vanille_v2.db`.
-3. Relancer `python seed.py`, puis redémarrer le backend normalement.
-
-⚠️ Cette opération supprime définitivement toutes les données déjà saisies dans l'application. À ne faire que si c'est vraiment voulu.
-
-**Je ne me souviens plus si je dois refaire `pip install` ou `npm install`**
-→ Ces deux commandes ne sont nécessaires qu'une seule fois (sauf si le code du projet a été mis à jour depuis GitHub — dans ce cas, il est prudent de les relancer une fois, chacune dans son dossier, avant de redémarrer l'application).
 
 
