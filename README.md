@@ -243,8 +243,4 @@ Dans chacun des deux terminaux, cliquer dedans puis appuyer sur `Ctrl + C`. Ferm
 **Je ne me souviens plus si je dois refaire `pip install` ou `npm install`**
 → Ces deux commandes ne sont nécessaires qu'une seule fois (sauf si le code du projet a été mis à jour depuis GitHub — dans ce cas, il est prudent de les relancer une fois, chacune dans son dossier, avant de redémarrer l'application).
 
----
 
-## 9. Où trouver la documentation du projet
-
-Le dossier `New folder` (à la racine du projet) contient les documents de référence utilisés pour construire l'application : cahier des charges, fiches techniques par module, et scripts de démonstration.
